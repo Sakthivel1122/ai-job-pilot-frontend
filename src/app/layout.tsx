@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.scss";
 import "../styles/base.scss";
-import { ThemeProvider } from "next-themes";
-import { ToastProvider } from "@/components/toastProvider/toastProvider";
-import { ClientProvider } from "@/components/clientProvider/clientProvider";
+// import { ThemeProvider } from "next-themes";
+// import { ToastProvider } from "@/components/toastProvider/toastProvider";
+// import { ClientProvider } from "@/components/clientProvider/clientProvider";
 
 export const metadata: Metadata = {
   title: "AI Job Pilot",
