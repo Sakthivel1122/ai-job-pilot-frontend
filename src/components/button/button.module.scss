@@ -1,0 +1,73 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.button {
+  padding: 1.2rem 1.6rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: $primary-btn-color;
+
+  &_text {
+    @include para1;
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: lighten($primary-btn-color, 17%);
+  }
+
+  &:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+}
+
+.secondary_btn {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+
+  &_text {
+    color: black;
+  }
+
+  @include dark-mode {
+    border-color: rgba(255, 255, 255, 0.3);
+
+    &_text {
+      color: white;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    @include dark-mode {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.transparent_btn {
+  background-color: transparent;
+
+  &_text {
+    color: black;
+  }
+
+  @include dark-mode {
+    &_text {
+      color: white;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    @include dark-mode {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.StatusTag {
+  @include para2;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  width: fit-content;
+  border-radius: 1.2rem;
+  white-space: nowrap;
+
+  &_applied {
+    color: #1e40af;
+    background-color: #dbeafe;
+  }
+
+  &_interview_scheduled {
+    color: #854d0e;
+    background-color: #fef9c3;
+  }
+
+  &_interviewing {
+    color: #854d0e;
+    background-color: #fef9c3;
+  }
+
+  &_selected {
+    color: #166534;
+    background-color: #dcfce7;
+  }
+
+  &_rejected {
+    color: #991b1b;
+    background-color: #fee2e2;
+  }
+
+  &_grey {
+    background-color: $light-grey;
+  }
+
+  &_black {
+    color: white;
+    background-color: black;
+  }
+
+  &_default {
+    border: 1px solid rgb(222, 222, 222);
+  }
+}

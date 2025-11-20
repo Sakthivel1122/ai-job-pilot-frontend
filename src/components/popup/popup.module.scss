@@ -1,0 +1,102 @@
+@import "../../styles/mixins.scss";
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 999;
+  @include flex-center;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.popup {
+  position: relative;
+  background: #fff;
+  border-radius: 0.6rem;
+  padding: 2.4rem;
+  max-width: 45rem;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(10px) scale(0.9);
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: 90dvh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #adadad;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #9c9c9c;
+  }
+}
+
+.close_icon_wrapper {
+  position: absolute;
+  cursor: pointer;
+  top: 1.4rem;
+  right: 1.4rem;
+  border-radius: 50%;
+  height: 2.8rem;
+  width: 2.8rem;
+  @include flex-center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.close_icon {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+@keyframes popupIn {
+  0% {
+    transform: translateY(10px) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes popupOut {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.popupEnter {
+  animation: popupIn 0.2s ease forwards;
+}
+
+.popupExit {
+  animation: popupOut 0.2s ease forwards;
+}

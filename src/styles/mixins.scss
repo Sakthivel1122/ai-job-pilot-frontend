@@ -1,0 +1,62 @@
+@import "./variables.scss";
+
+@mixin title1 {
+  font-size: 5rem;
+  font-family: $primary-font;
+
+  @include dark-mode {
+    color: white;
+  }
+}
+
+@mixin heading1 {
+  font-size: 2.4rem;
+  font-family: $primary-font;
+  font-weight: bold;
+
+  @include dark-mode {
+    color: white;
+  }
+}
+
+@mixin para1 {
+  color: $text-color-light;
+  font-size: 1.6rem;
+  font-family: $primary-font;
+
+  @include dark-mode {
+    color: white;
+  }
+}
+
+@mixin para2 {
+  font-family: $primary-font;
+  font-size: 1.2rem;
+  color: black;
+
+  @include dark-mode {
+    color: white;
+  }
+}
+
+@mixin para3 {
+  font-family: $primary-font;
+  font-size: 1.6rem;
+  color: black;
+
+  @include dark-mode {
+    color: white;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin dark-mode {
+  :global(html.dark) & {
+    @content;
+  }
+}

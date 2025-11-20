@@ -1,0 +1,27 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.ToastProvider {
+  &_toaster {
+    cursor: pointer;
+    @include para2;
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    &_success {
+      border-left: 5px solid $success_color;
+    }
+
+    &_error {
+      border-left: 5px solid $error_color;
+    }
+
+    &_warning {
+      border-left: 5px solid $warning_color;
+    }
+
+    &_info {
+      border-left: 5px solid $info_color;
+    }
+  }
+}

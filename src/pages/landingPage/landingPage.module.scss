@@ -1,0 +1,116 @@
+@import "../../styles/mixins.scss";
+
+.LandingPage {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+
+  &_banner_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    height: 50vh;
+  }
+
+  &_banner_btn_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &_tag_text {
+    @include para2;
+    background-color: rgb(241, 240, 240);
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    border-radius: 1.25rem;
+  }
+
+  &_big_title_text {
+    @include title1;
+    text-align: center;
+  }
+
+  &_description_text {
+    @include para1;
+    font-size: 1.8rem;
+    max-width: 80rem;
+    text-align: center;
+    line-height: 2.8rem;
+  }
+
+  &_hovering_card {
+    &_container {
+      margin: 0 auto;
+      width: 85%;
+      padding: 1.8rem;
+      padding-bottom: 2.2rem;
+      border-radius: 0.6rem;
+      box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
+        0 20px 50px -12px rgb(0 0 0 / 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &_title {
+      @include heading1;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    &_tag_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &_wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+  }
+
+  &_feature {
+    &_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+      margin: 14rem 0 10rem 0;
+    }
+
+    &_title {
+      @include heading1;
+      font-size: 3.2rem;
+      text-align: center;
+      line-height: 4.2rem;
+    }
+
+    &_description {
+      @include para1;
+      font-size: 1.8rem;
+      max-width: 60rem;
+      text-align: center;
+      line-height: 2.8rem;
+    }
+
+    &_list_wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      width: 100%;
+      margin-top: 4rem;
+    }
+  }
+}

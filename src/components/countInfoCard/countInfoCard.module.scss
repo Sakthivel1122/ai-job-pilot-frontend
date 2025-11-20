@@ -1,0 +1,142 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.CountInfoCard {
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 2.4rem;
+  width: 100%;
+  min-width: fit-content;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
+    0 10px 15px 0px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+  }
+
+  &_icon_wrapper {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    background-color: rgb(233, 233, 233);
+    background-color: #0f172a1a;
+    @include flex-center;
+  }
+
+  &_icon {
+    font-size: 2rem;
+  }
+
+  &_details_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  &_title {
+    @include para1;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  &_count {
+    @include para2;
+    font-size: 2.8rem;
+    font-weight: bold;
+  }
+
+  &_description {
+    @include para1;
+    font-size: 1.2rem;
+  }
+
+  &.applied {
+    background-image: linear-gradient(to bottom right, #eff6ff, #dbeafe);
+    .CountInfoCard {
+      &_icon_wrapper {
+        background-color: #3b82f633;
+      }
+
+      &_icon {
+        color: #2571eb;
+      }
+      
+      &_title {
+        color: #1D4ED8;
+      }
+    
+      &_count {
+        color: #3C83F6;
+      }
+    
+      &_description {
+        color: #2563EB;
+      }
+    }
+  }
+
+  &.interviews {
+    background-image: linear-gradient(to bottom right, #fefce8, #fef9c3);
+
+    .CountInfoCard {
+      &_icon_wrapper {
+        background-color: #eab30833;
+      }
+
+      &_icon {
+        color: #9d7704;
+      }
+
+      &_title {
+        color: #A16307;
+      }
+    
+      &_count {
+        color: #E7B008;
+      }
+    
+      &_description {
+        color: #CA8A04;
+      }
+    }
+  }
+
+  &.offers {
+    background-image: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+    .CountInfoCard {
+      &_icon_wrapper {
+        background-color: #22c55e33;
+      }
+
+      &_icon {
+        color: #1daa51;
+      }
+
+      &_title {
+        color: #15803D;
+      }
+    
+      &_count {
+        color: #21C45D;
+      }
+    
+      &_description {
+        color: #16A34A;
+      }
+    }
+  }
+}
+
+.class {
+  --tw-gradient-to: #dbeafe var(--tw-gradient-to-position);
+  --tw-gradient-from: #eff6ff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(239 246 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}

@@ -1,0 +1,68 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.NavBar {
+  height: 6rem;
+  border-bottom: 1px solid $border-color-light;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+
+  &_logo {
+    @include para1;
+    color: black;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  &_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: $content-max-width;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+
+    &_left {
+    }
+
+    &_right {
+      &_item {
+        @include para1;
+        user-select: none;
+        cursor: pointer;
+        text-decoration: none;
+
+        &.active, &:hover {
+          color: black;
+        }
+      }
+      &_item_wrapper {
+        list-style: none;
+        display: flex;
+        gap: 1.6rem;
+      }
+    }
+  }
+
+  &_loggedin_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  &_signin_btn_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  &_profile_icon {
+    font-size: 2.2rem !important;
+    color: $text-color-light;
+  }
+
+
+}

@@ -1,0 +1,85 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.ApplicationInfoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 1rem 2rem 2rem 2rem;
+  border-radius: 0.8rem;
+  //   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow: 0 5px 15px -5px rgb(0 0 0 / 0.15);
+  width: 100%;
+
+  &_title {
+    @include heading1;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  &_company {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    &_icon {
+      font-size: 2rem;
+      color: $text-color-light;
+    }
+    &_text {
+      @include para1;
+    }
+  }
+
+  &_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    &_left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    &_right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  &_other_details {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &_item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      &_text {
+        @include para1;
+      }
+    }
+  }
+
+  &_more_btn {
+    padding: 0 !important;
+    background-color: transparent !important;
+    min-width: 3rem !important;
+    height: 2rem;
+    width: fit-content;
+    border: none !important;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &_notes {
+    @include para2;
+    font-size: 1.4rem;
+    background-color: $light-grey;
+    padding: 1.2rem 1.2rem;
+  }
+}

@@ -1,0 +1,69 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.dropdownWrapper {
+  display: inline-block;
+  position: relative;
+  z-index: 0 !important;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-transform: none !important;
+  transition: background-color 0.3s ease;
+  color: black !important;
+  font-family: $primary-font !important;
+  white-space: nowrap !important;
+
+  &:hover {
+    background-color: darken($light-grey, 5) !important; // hover color
+  }
+
+  &:active {
+    background-color: darken($light-grey, 5) !important; // click effect color
+  }
+
+  &:focus {
+    outline: 2px solid rgb(0, 0, 0, 1);
+    outline-offset: 2px;
+  }
+}
+
+.leftIcon {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.dropdownIcon {
+  transition: transform 0.25s ease;
+}
+
+.dropdownIcon.open {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  //   margin-top: 6px;
+}
+.dropdownPaper {
+  //   border: 1px solid red !important;
+  //   width: 20rem;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem !important;
+}
+
+.itemIcon {
+  min-width: 32px;
+}
+
+.end_icon {
+  font-size: 1.8rem;
+  margin-left: 0.8rem;
+}

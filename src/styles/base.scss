@@ -1,0 +1,10 @@
+html {
+  font-size: 10px; /* Ensures 1rem equals 16px */
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.25) and (-webkit-max-device-pixel-ratio: 1.55172413793103),
+  (min-resolution: 120dpi) and (max-resolution: 149dpi) {
+  html {
+    font-size: 8px;
+  }
+}
