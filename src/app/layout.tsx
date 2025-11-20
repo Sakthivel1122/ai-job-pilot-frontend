@@ -25,10 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <ClientProvider>{children}</ClientProvider>
+      {children}
+        {/* <ThemeProvider attribute="class" defaultTheme="light" enableSystem> */}
+          {/* <ClientProvider>{children}</ClientProvider> */}
           {/* <ToastProvider /> */}
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
