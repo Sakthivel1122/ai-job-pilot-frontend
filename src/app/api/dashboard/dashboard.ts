@@ -12,3 +12,7 @@ export const createUpdateJobApplicationApi = (payload: any, callback: (res: any)
 export const getJobApplicationsApi = (params: any, callback: (res: any) => void = () => {}) => {
   fetchCall(API_CONSTANTS.JOB_APPLICATION, API_METHODS.GET, params, callback);
 };
+
+export const deleteJobApplicationsApi = (params: string, callback: (res: any) => void = () => {}) => {
+  fetchCall(`${API_CONSTANTS.JOB_APPLICATION}${params}`, API_METHODS.DELETE, "", callback);
+};

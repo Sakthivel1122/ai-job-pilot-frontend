@@ -1,7 +1,7 @@
 import { ApiResponse, TJobApplicationStatus } from "./commonTypes";
 
 export type TJobApplicationData = {
-    _id: string;
+    _id?: string;
     company: string;
     role: string;
     status: TJobApplicationStatus;

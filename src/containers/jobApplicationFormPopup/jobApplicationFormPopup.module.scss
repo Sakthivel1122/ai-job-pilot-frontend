@@ -10,7 +10,7 @@
   &_form {
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    // gap: 1.6rem;
   }
 
   &_dropdown {
@@ -32,6 +32,7 @@
     flex-direction: column;
     width: 100%;
     gap: 1rem;
+    margin-top: 1.6rem;
   }
 
   &_salary_input_wrapper {
@@ -39,6 +40,7 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
+    margin-top: 1.6rem;
   }
 
   &_bottom_btn_wrapper {
@@ -46,5 +48,16 @@
     align-items: center;
     gap: 1rem;
     align-self: flex-end;
+    margin-top: 1.6rem;
+  }
+
+  &_error_text {
+    @include para2;
+    color: red;
+    margin-top: 0.6rem;
+  }
+
+  &_input_field {
+    margin-top: 1.6rem;
   }
 }

@@ -17,11 +17,14 @@ import { FaChevronDown } from "react-icons/fa";
 import { IoChevronDown } from "react-icons/io5";
 import ApplicationInfoCard from "@/components/applicationInfoCard/applicationInfoCard";
 import {
+  deleteJobApplicationsApi,
   getDashboardDataApi,
   getJobApplicationsApi,
 } from "@/app/api/dashboard/dashboard";
 import JobApplicationFormPopup from "@/containers/jobApplicationFormPopup/jobApplicationFormPopup";
 import { TJobApplicationData } from "@/types/apiResponseTypes";
+import LineLoader from "@/components/lineLoader/lineLoader";
+import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
 
 type CountKey = "totalApplications" | "applied" | "interviews" | "offers";
 
@@ -120,6 +123,8 @@ const DashboardPage = () => {
   const [clientSideRendering, setClientSideRendering] = useState(false);
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(10);
+  const [isGetApplicationApiLoading, setIsGetApplicationApiLoading] = useState(true);
+  const [editApplicationData, setEditApplicationData] = useState<TJobApplicationData | undefined>();
 
   const handleSearchOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -129,12 +134,16 @@ const DashboardPage = () => {
 
   const handleAddJobApplicationClick = () => {
     setJobApplicationFormPopup(true);
+    setEditApplicationData(undefined);
   };
 
   const updateJobApplicationList = (params: TGetJobApplicationParams) => {
     getJobApplicationsApi(params, (res) => {
       if (res?.response?.status === 200) {
         setJobApplicationList(res?.content?.data);
+        setIsGetApplicationApiLoading(false);
+      } else {
+        setIsGetApplicationApiLoading(false);
       }
     });
   };
@@ -142,14 +151,30 @@ const DashboardPage = () => {
   const createUpdateJobApplicationOnSuccess = () => {
     const params: TGetJobApplicationParams = {
       page: 1,
-      limit: 10,
+      limit: 100,
     };
     updateJobApplicationList(params);
     setJobApplicationFormPopup(false);
   };
 
-  useEffect(() => {
-    setClientSideRendering(true);
+  const deleteJobApplication = (id: string | undefined) => {
+    const params = `?id=${id}`;
+    deleteJobApplicationsApi(params, (res) => {
+      if (res?.response?.status === 200) {
+        alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
+        updateDashboardData();
+        const params: TGetJobApplicationParams = {
+          page: 1,
+          limit: 100,
+        };
+        updateJobApplicationList(params);
+      } else {
+        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
+      }
+    });
+  }
+
+  const updateDashboardData = () => {
     getDashboardDataApi((res) => {
       if (res?.response?.status === 200) {
         const content = res?.content;
@@ -161,7 +186,11 @@ const DashboardPage = () => {
         });
       }
     });
+  }
 
+  useEffect(() => {
+    setClientSideRendering(true);
+    updateDashboardData();
     const params: TGetJobApplicationParams = {
       page: 1,
       limit: 100,
@@ -226,8 +255,13 @@ const DashboardPage = () => {
           />
         </div>
         <div className={styles.DashboardPage_application_cards_wrapper}>
-          {jobApplicationList &&
-            jobApplicationList.map((data, index) => (
+          {isGetApplicationApiLoading
+          ? <div className={styles.DashboardPage_loader_wrapper}>
+              <p className={styles.DashboardPage_loader_text}>Loading Applications...</p>
+              <LineLoader />
+            </div> 
+          : (jobApplicationList && jobApplicationList.length > 0)
+            ? jobApplicationList.map((data, index) => (
               <ApplicationInfoCard
                 key={data?._id || index}
                 jobTitle={data?.role}
@@ -237,8 +271,16 @@ const DashboardPage = () => {
                 notes={data?.notes}
                 salaryMin={data.salary_min}
                 salaryMax={data.salary_max}
+                onEditClick={() => {
+                  setEditApplicationData(data);
+                  setJobApplicationFormPopup(true);
+                }}
+                onDeleteClick={() => {
+                  deleteJobApplication(data?._id);
+                }}
               />
-            ))}
+            ))
+            : <p className={styles.DashboardPage_loader_text}>No Applications Found</p>}
         </div>
       </main>
 
@@ -250,6 +292,7 @@ const DashboardPage = () => {
               setJobApplicationFormPopup(false);
             }}
             onSuccess={createUpdateJobApplicationOnSuccess}
+            applicationData={editApplicationData}
           />
         </>
       )}

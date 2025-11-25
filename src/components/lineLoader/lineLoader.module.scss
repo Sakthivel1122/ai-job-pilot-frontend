@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+
+.LineLoader {
+  width: 100%;
+  height: 4.8px;
+  display: inline-block;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.LineLoader::after {
+  content: "";
+  width: 40%;
+  height: 4.8px;
+  background: $primary-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 1.5s linear infinite;
+  // --speed: 1s;
+  // animation: animloader var(--speed) linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
+}

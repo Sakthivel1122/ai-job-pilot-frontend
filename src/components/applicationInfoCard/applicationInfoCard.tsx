@@ -17,6 +17,8 @@ interface IApplicationInfoCardProps {
   salaryMax?: string | number | null;
   notes?: string | null;
   applicationStatus: TJobApplicationStatus;
+  onEditClick?: () => void;
+  onDeleteClick?: () => void;
 }
 
 const statusDropdownFilterOptions: TDropdownOptionData[] = [
@@ -40,6 +42,8 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
   notes,
   salaryMin,
   salaryMax,
+  onEditClick,
+  onDeleteClick,
 }) => {
   const applicationStatusText = useMemo(() => {
     return getApplicationStatusText(applicationStatus);
@@ -96,7 +100,13 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
             }
             endIcon={""}
             options={statusDropdownFilterOptions}
-            onSelect={(value) => console.log(value)}
+            onSelect={(value) => {
+              if (value?.data === "edit") {
+                onEditClick?.();
+              } else if (value?.data === "delete") {
+                onDeleteClick?.();
+              }
+            }}
           />
         </div>
       </div>
