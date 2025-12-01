@@ -21,7 +21,7 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
   jobApplicationDetails,
 }) => {
   const [resumeList, setResumeList] = useState<TResumeData[] | [] | null>(
-    jobApplicationDetails.resumes ? jobApplicationDetails.resumes : []
+    jobApplicationDetails?.resumes ? jobApplicationDetails?.resumes : []
   );
   const [enableUploadResume, setEnableUploadResume] = useState(false);
   const [isUploadResumeBtnLoading, setIsUploadResumeBtnLoading] =
@@ -58,7 +58,7 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
 
   const updateResumeList = () => {
     const params = {
-      job_application_id: jobApplicationDetails.id,
+      job_application_id: jobApplicationDetails?.id,
     };
     getResumeListApi(params, (res) => {
       if (res?.response?.status === 200) {
