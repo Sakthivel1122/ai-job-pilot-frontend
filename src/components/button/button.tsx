@@ -15,6 +15,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   href?: string;
   newTab?: boolean;
+  customLoader?: string | React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   href,
   newTab,
+  customLoader,
   ...props
 }) => {
   const btnClass =
@@ -52,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
         className={`${styles.button} ${btnClass} ${className || ""}`}
       >
         {isLoading ? (
-          <ThreeDotLoader color="white" size={10} />
+          customLoader ? customLoader : <ThreeDotLoader color="white" size={10} /> 
         ) : content ? (
           <p className={styles.button_text}>{content}</p>
         ) : (
@@ -69,7 +71,7 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {isLoading ? (
-        <ThreeDotLoader color="white" size={10} />
+        customLoader ? customLoader : <ThreeDotLoader color="white" size={10} />
       ) : content ? (
         <p
           className={`${styles.button_text} ${btnTextClass} ${

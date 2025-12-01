@@ -1,0 +1,139 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.JobApplicationPage {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  padding-bottom: 3rem;
+
+  &_header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 3rem 0;
+
+    &_text_wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &_title1 {
+      @include heading1;
+      font-size: 2.2rem;
+    }
+
+    &_title2 {
+      @include para1;
+    }
+  }
+
+  &_back_arrow {
+    font-size: 2rem;
+
+    &_wrapper {
+      cursor: pointer;
+      height: 3.2rem;
+      width: 3.2rem;
+      @include flex-center;
+      border-radius: 50%;
+      transition: background-color 0.25s ease;
+
+      &:hover {
+        background-color: $hover-color-light;
+      }
+    }
+  }
+
+  &_title {
+    @include heading1;
+    font-size: 2rem;
+  }
+
+  &_job_description {
+    &_wrapper {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0.6rem;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      margin-top: 2.4rem;
+    }
+
+    &_text {
+      @include para2;
+      font-size: 1.4rem;
+      line-height: 1.6;
+    }
+  }
+
+  &_resume_management {
+    &_header {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &_upload_btn_text {
+      font-weight: 500;
+    }
+  }
+
+  &_uploaded_resumes {
+    &_container {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0.6rem;
+      padding: 2rem;
+      margin-top: 1.6rem;
+    }
+
+    &_title {
+      @include heading1;
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+
+    &_title_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    &_card_wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1.6rem;
+    }
+  }
+
+  &_no_resumes {
+    &_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+      margin: 2.4rem 0;
+    }
+
+    &_icon {
+      font-size: 3.2rem;
+      color: $text-color-light;
+    }
+
+    &_text1 {
+      @include para1;
+    }
+    &_text2 {
+      @include para1;
+      font-size: 1.4rem;
+    }
+  }
+
+  &_upload_new_resume_container {
+    margin-top: 1.6rem;
+  }
+}

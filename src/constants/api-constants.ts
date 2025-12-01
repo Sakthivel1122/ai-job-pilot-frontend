@@ -6,6 +6,9 @@ export const API_CONSTANTS = {
   REFRESH_TOKEN: `${BaseUrl}/auth/refresh-token`,
   DASHBOARD: `${BaseUrl}/user/api/v1/dashboard`,
   JOB_APPLICATION: `${BaseUrl}/user/api/v1/job-application`,
+  GET_JOB_APPLICATION_DETAILS: `${BaseUrl}/job-application/api/v1/get-job-application-details`,
+  UPLOAD_RESUME: `${BaseUrl}/resume/api/v1/upload-resume`,
+  GET_RESUME_LIST: `${BaseUrl}/resume/api/v1/get-resume-list`,
   TOKEN: `${BaseUrl}/token`,
 }
 

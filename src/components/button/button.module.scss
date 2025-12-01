@@ -49,6 +49,12 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
+
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .transparent_btn {

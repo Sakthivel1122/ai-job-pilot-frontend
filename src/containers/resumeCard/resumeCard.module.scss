@@ -1,0 +1,125 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.ResumeCard {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 0.8rem;
+
+  &_top {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+
+    &_resume_name_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &_resume_name {
+      @include heading1;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    &_uploaded_time {
+      @include para1;
+    }
+
+    &_ai_score_wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &_ai_score_title_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &_ai_score_title {
+      @include para2;
+      font-size: 1.4rem;
+    }
+
+    &_ai_score_text {
+      @include para2;
+      font-size: 1.4rem;
+    }
+
+    &_ai_score_line_wrapper {
+      position: relative;
+      height: 0.8rem;
+      background-color: rgba(0, 0, 0, 0.08);
+      border-radius: 0.5rem;
+    }
+
+    &_ai_score_line {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 0.8rem;
+      background-color: $primary-btn-color;
+      border-radius: 0.5rem;
+    }
+
+    &_view_feedback_btn {
+      background-color: transparent;
+      border: none;
+      width: fit-content;
+      @include para2;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 1.2rem 1.6rem;
+      border-radius: 0.4rem;
+      transition: background-color 0.2s ease;
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      &_icon {
+        font-size: 1.6rem;
+        align-self: flex-end;
+        transition: transform 0.3s ease;
+
+        &.open {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &_split_line {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+    }
+  }
+
+  &_bottom {
+    background-color: #f1f5f980;
+    padding: 1.6rem;
+    border-radius: 0.6rem;
+    margin-top: 2rem;
+
+    &_title {
+      @include para1;
+      color: #38536b;
+      line-height: 1.6;
+      font-size: 1.6rem;
+    }
+
+    &_text {
+      @include para2;
+      font-size: 1.6rem;
+      line-height: 1.6;
+    }
+  }
+}

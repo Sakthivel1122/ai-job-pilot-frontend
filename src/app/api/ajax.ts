@@ -23,7 +23,8 @@ export const fetchCall = async <T>(
   payload: any = {},
   callback: (res: T | any) => void = () => {},
   isServerSide: boolean = false,
-  clientToken?: string
+  clientToken?: string,
+  props?: any
 ): Promise<void> => {
   let accessToken: string | undefined;
 
@@ -39,12 +40,16 @@ export const fetchCall = async <T>(
     }
   }
 
-  const headers: Record<string, string> = {
+  let headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
 
   if (!url.includes(API_CONSTANTS.TOKEN) && accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+
+  if (props?.customHeader) {
+    headers = {...headers, ...props.customHeader};
   }
 
   const options = {
@@ -132,14 +137,14 @@ axiosInstance.interceptors.response.use(
               return axiosInstance(originalRequest);
             }
           } else {
-            handleLogout(ROUTES.LOGIN);
+            handleLogout(ROUTES.HOME);
           }
         } else {
-          handleLogout(ROUTES.LOGIN);
+          handleLogout(ROUTES.HOME);
         }
       } catch (refreshError: any) {
         if (refreshError?.status === 401) {
-          handleLogout(ROUTES.LOGIN);
+          handleLogout(ROUTES.HOME);
         }
         // If refresh also fails, log out
         return Promise.reject(refreshError);

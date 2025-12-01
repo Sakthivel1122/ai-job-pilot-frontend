@@ -25,6 +25,8 @@ import JobApplicationFormPopup from "@/containers/jobApplicationFormPopup/jobApp
 import { TJobApplicationData } from "@/types/apiResponseTypes";
 import LineLoader from "@/components/lineLoader/lineLoader";
 import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/constants/app-constants";
 
 type CountKey = "totalApplications" | "applied" | "interviews" | "offers";
 
@@ -126,6 +128,8 @@ const DashboardPage = () => {
   const [isGetApplicationApiLoading, setIsGetApplicationApiLoading] = useState(true);
   const [editApplicationData, setEditApplicationData] = useState<TJobApplicationData | undefined>();
 
+  const router = useRouter();
+
   const handleSearchOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -149,6 +153,7 @@ const DashboardPage = () => {
   };
 
   const createUpdateJobApplicationOnSuccess = () => {
+    updateDashboardData();
     const params: TGetJobApplicationParams = {
       page: 1,
       limit: 100,
@@ -215,7 +220,7 @@ const DashboardPage = () => {
         </div>
         <div className={styles.DashboardPage_header}>
           <div className={styles.DashboardPage_header_left}>
-            <h1 className={styles.DashboardPage_header_title}>Heading</h1>
+            <h1 className={styles.DashboardPage_header_title}>Job Applications</h1>
             <p className={styles.DashboardPage_header_description}>
               Track and manage your job search journey
             </p>
@@ -278,6 +283,9 @@ const DashboardPage = () => {
                 onDeleteClick={() => {
                   deleteJobApplication(data?._id);
                 }}
+                onClick={() => {
+                  router.push(`${ROUTES.JOB_APPLICATION}/${data._id}`);
+                }}
               />
             ))
             : <p className={styles.DashboardPage_loader_text}>No Applications Found</p>}
@@ -293,6 +301,7 @@ const DashboardPage = () => {
             }}
             onSuccess={createUpdateJobApplicationOnSuccess}
             applicationData={editApplicationData}
+            
           />
         </>
       )}

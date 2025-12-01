@@ -202,6 +202,7 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       customClass={styles.JobApplicationFormPopup}
+      noOutsideClickClose={true}
     >
       {/* <p className={styles.JobApplicationFormPopup_title}>
         Add New Job Application

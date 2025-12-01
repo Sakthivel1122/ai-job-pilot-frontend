@@ -19,6 +19,7 @@ interface IApplicationInfoCardProps {
   applicationStatus: TJobApplicationStatus;
   onEditClick?: () => void;
   onDeleteClick?: () => void;
+  onClick?: () => void;
 }
 
 const statusDropdownFilterOptions: TDropdownOptionData[] = [
@@ -44,12 +45,13 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
   salaryMax,
   onEditClick,
   onDeleteClick,
+  onClick,
 }) => {
   const applicationStatusText = useMemo(() => {
     return getApplicationStatusText(applicationStatus);
   }, [applicationStatus]);
   return (
-    <div className={styles.ApplicationInfoCard}>
+    <div className={styles.ApplicationInfoCard} onClick={onClick}>
       <div className={styles.ApplicationInfoCard_content}>
         <div className={styles.ApplicationInfoCard_content_left}>
           <p className={styles.ApplicationInfoCard_title}>{jobTitle}</p>
@@ -90,6 +92,11 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
         </div>
         <div className={styles.ApplicationInfoCard_content_right}>
           <StatusTag type={applicationStatus} text={applicationStatusText} />
+          <div
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.stopPropagation();
+            }}
+          >
           <Dropdown
             buttonLabel={""}
             buttonClass={styles.ApplicationInfoCard_more_btn}
@@ -108,6 +115,7 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
               }
             }}
           />
+          </div>
         </div>
       </div>
       {notes && <p className={styles.ApplicationInfoCard_notes}>{notes}</p>}

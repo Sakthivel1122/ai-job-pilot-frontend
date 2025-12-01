@@ -264,7 +264,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
       <nav className={styles.NavBar}>
         <div className={styles.NavBar_content}>
           <div className={styles.NavBar_content_left}>
-            <p className={styles.NavBar_logo}>Logo</p>
+            <p className={styles.NavBar_logo}>JobPilot</p>
           </div>
           <div className={styles.NavBar_content_right}>
             {sessionData?.isLoggedIn ? (
@@ -344,4 +344,3 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
 };
 
 export default NavBar;
-

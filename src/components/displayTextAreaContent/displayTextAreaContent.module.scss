@@ -1,0 +1,45 @@
+@import "../../styles/mixins.scss";
+
+.DisplayTextAreaContent {
+  @include para2;
+  font-size: 1.6rem;
+  line-height: 1.6;
+
+  p {
+    white-space: pre-line;
+    margin-bottom: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  ul,
+  ol {
+    margin-left: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Dark mode equivalent of dark:prose-invert */
+
+// .dark & {
+//   .prose {
+//     color: #e5e5e5;
+
+//     code {
+//       background: #333;
+//     }
+//   }
+// }
