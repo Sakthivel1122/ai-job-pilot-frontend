@@ -10,7 +10,7 @@ interface IApplicationDetailsProps {
 
 const ApplicationDetails: React.FC<IApplicationDetailsProps> = ({ data }) => {
   const applicationStatusText = useMemo(() => {
-    return getApplicationStatusText(data.status);
+    return getApplicationStatusText(data?.status);
   }, [data]);
   return (
     <div className={styles.ApplicationDetails}>
