@@ -27,6 +27,7 @@ import LineLoader from "@/components/lineLoader/lineLoader";
 import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/app-constants";
+import PageLoader from "@/components/pageLoader/pageLoader";
 
 type CountKey = "totalApplications" | "applied" | "interviews" | "offers";
 
@@ -125,8 +126,12 @@ const DashboardPage = () => {
   const [clientSideRendering, setClientSideRendering] = useState(false);
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(10);
-  const [isGetApplicationApiLoading, setIsGetApplicationApiLoading] = useState(true);
-  const [editApplicationData, setEditApplicationData] = useState<TJobApplicationData | undefined>();
+  const [isGetApplicationApiLoading, setIsGetApplicationApiLoading] =
+    useState(true);
+  const [editApplicationData, setEditApplicationData] = useState<
+    TJobApplicationData | undefined
+  >();
+  const [pageLoader, setPageLoader] = useState(false);
 
   const router = useRouter();
 
@@ -177,7 +182,7 @@ const DashboardPage = () => {
         alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
       }
     });
-  }
+  };
 
   const updateDashboardData = () => {
     getDashboardDataApi((res) => {
@@ -191,7 +196,7 @@ const DashboardPage = () => {
         });
       }
     });
-  }
+  };
 
   useEffect(() => {
     setClientSideRendering(true);
@@ -220,7 +225,9 @@ const DashboardPage = () => {
         </div>
         <div className={styles.DashboardPage_header}>
           <div className={styles.DashboardPage_header_left}>
-            <h1 className={styles.DashboardPage_header_title}>Job Applications</h1>
+            <h1 className={styles.DashboardPage_header_title}>
+              Job Applications
+            </h1>
             <p className={styles.DashboardPage_header_description}>
               Track and manage your job search journey
             </p>
@@ -260,13 +267,15 @@ const DashboardPage = () => {
           />
         </div>
         <div className={styles.DashboardPage_application_cards_wrapper}>
-          {isGetApplicationApiLoading
-          ? <div className={styles.DashboardPage_loader_wrapper}>
-              <p className={styles.DashboardPage_loader_text}>Loading Applications...</p>
+          {isGetApplicationApiLoading ? (
+            <div className={styles.DashboardPage_loader_wrapper}>
+              <p className={styles.DashboardPage_loader_text}>
+                Loading Applications...
+              </p>
               <LineLoader />
-            </div> 
-          : (jobApplicationList && jobApplicationList.length > 0)
-            ? jobApplicationList.map((data, index) => (
+            </div>
+          ) : jobApplicationList && jobApplicationList.length > 0 ? (
+            jobApplicationList.map((data, index) => (
               <ApplicationInfoCard
                 key={data?._id || index}
                 jobTitle={data?.role}
@@ -284,11 +293,16 @@ const DashboardPage = () => {
                   deleteJobApplication(data?._id);
                 }}
                 onClick={() => {
+                  setPageLoader(true);
                   router.push(`${ROUTES.JOB_APPLICATION}/${data._id}`);
                 }}
               />
             ))
-            : <p className={styles.DashboardPage_loader_text}>No Applications Found</p>}
+          ) : (
+            <p className={styles.DashboardPage_loader_text}>
+              No Applications Found
+            </p>
+          )}
         </div>
       </main>
 
@@ -301,10 +315,10 @@ const DashboardPage = () => {
             }}
             onSuccess={createUpdateJobApplicationOnSuccess}
             applicationData={editApplicationData}
-            
           />
         </>
       )}
+      {pageLoader && <PageLoader />}
     </>
   );
 };

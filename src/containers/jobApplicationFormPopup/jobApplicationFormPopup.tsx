@@ -46,7 +46,7 @@ const applicationStatusOptionList: TDropdownOptionData[] = [
 
 interface IJobApplicationFormPopupProps {
   isOpen: boolean;
-  applicationData?: TJobApplicationData,
+  applicationData?: TJobApplicationData;
   onClose: () => void;
   onSuccess?: () => void;
 }
@@ -64,14 +64,15 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
     jobDescription?: string;
   };
   type TsalaryData = {
-    min: string | number,
-    max: string | number,
-  }
+    min: string | number;
+    max: string | number;
+  };
 
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
-  const [applicationStatus, setApplicationStatus] =
-    useState<TDropdownOptionData | undefined>(applicationStatusOptionList[0]);
+  const [applicationStatus, setApplicationStatus] = useState<
+    TDropdownOptionData | undefined
+  >(applicationStatusOptionList[0]);
   const [jobDescription, setJobDescription] = useState("");
 
   const [salary, setSalary] = useState<TsalaryData>({ min: "", max: "" });
@@ -167,18 +168,24 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
       setCompanyName(applicationData?.company ? applicationData?.company : "");
       setJobTitle(applicationData?.role ? applicationData.role : "");
       if (applicationData?.status) {
-        const status = applicationStatusOptionList.find((data) => data.data === applicationData?.status);
+        const status = applicationStatusOptionList.find(
+          (data) => data.data === applicationData?.status
+        );
         setApplicationStatus(status);
       } else {
         setApplicationStatus(applicationStatusOptionList[0]);
       }
-      setJobDescription(applicationData?.job_description ? applicationData.job_description : "");
+      setJobDescription(
+        applicationData?.job_description ? applicationData.job_description : ""
+      );
       setSalary({
         min: applicationData?.salary_min ? applicationData?.salary_min : "",
-        max: applicationData?.salary_max ? applicationData?.salary_max : ""
+        max: applicationData?.salary_max ? applicationData?.salary_max : "",
       });
       setLocation(applicationData?.location ? applicationData.location : "");
-      setApplicationURL(applicationData?.application_url ? applicationData.application_url : "");
+      setApplicationURL(
+        applicationData?.application_url ? applicationData.application_url : ""
+      );
       setApplicationNotes(applicationData?.notes ? applicationData.notes : "");
     }
   }, [isOpen, applicationData]);
@@ -207,7 +214,9 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
       {/* <p className={styles.JobApplicationFormPopup_title}>
         Add New Job Application
       </p> */}
-      <p className={styles.JobApplicationFormPopup_title}>Add</p>
+      <p className={styles.JobApplicationFormPopup_title}>
+        {applicationData?._id ? "Edit Job Application" : "Add Job Application"}
+      </p>
       <form className={styles.JobApplicationFormPopup_form}>
         <Input
           label="Company Name *"
@@ -215,7 +224,10 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
           placeholder="e.g., Google, Amazon, Microsoft, Startup etc"
           onChange={(e) => {
             setCompanyName(e.target.value);
-            setFormFieldError((prevState) => ({...prevState, companyName: ""}));
+            setFormFieldError((prevState) => ({
+              ...prevState,
+              companyName: "",
+            }));
           }}
           required
         />
@@ -231,7 +243,7 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
           placeholder="e.g., Senior Software Engineer"
           onChange={(e) => {
             setJobTitle(e.target.value);
-            setFormFieldError((prevState) => ({...prevState, jobTitle: ""}));
+            setFormFieldError((prevState) => ({ ...prevState, jobTitle: "" }));
           }}
           required
         />
@@ -245,12 +257,17 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
             Application Status *
           </label>
           <Dropdown
-            buttonLabel={applicationStatus?.label ? applicationStatus?.label : ""}
+            buttonLabel={
+              applicationStatus?.label ? applicationStatus?.label : ""
+            }
             buttonClass={styles.JobApplicationFormPopup_dropdown}
             options={applicationStatusOptionList}
             onSelect={(value) => {
               setApplicationStatus(value);
-              setFormFieldError((prevState) => ({...prevState, applicationStatus: ""}));
+              setFormFieldError((prevState) => ({
+                ...prevState,
+                applicationStatus: "",
+              }));
             }}
           />
           {formFieldError?.applicationStatus && (
@@ -300,7 +317,10 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
           placeholder="Paste the job description here for AI analysis..."
           onChange={(e) => {
             setJobDescription(e.target.value);
-            setFormFieldError((prevState) => ({...prevState, jobDescription: ""}));
+            setFormFieldError((prevState) => ({
+              ...prevState,
+              jobDescription: "",
+            }));
           }}
           required
         />
@@ -319,7 +339,13 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
         />
         <div className={styles.JobApplicationFormPopup_bottom_btn_wrapper}>
           <Button content="Cancel" variant="secondary" onClick={onCancel} />
-          <Button content="Add Application" type="submit" onClick={onSubmit} />
+          <Button
+            content={
+              applicationData?._id ? "Update Application" : "Add Application"
+            }
+            type="submit"
+            onClick={onSubmit}
+          />
         </div>
       </form>
     </Popup>

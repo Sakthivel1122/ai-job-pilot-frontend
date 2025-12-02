@@ -1,14 +1,19 @@
-import React from "react";
-import styles from "./lineLoader.module.scss";
+"use client";
+import { styled } from "@mui/material/styles";
+import LinearProgress, { LinearProgressProps } from "@mui/material/LinearProgress";
 
-const LineLoader = () => {
-  return (
-    <>
-      <span
-        className={styles.LineLoader}
-      ></span>
-    </>
-  );
-};
+const CustomLinearProgress = styled((props: LinearProgressProps) => (
+  <LinearProgress {...props} />
+))(({ theme }) => ({
+  height: 6,
+  borderRadius: 5,
+  backgroundColor: "#0000000d", // track color
+  "& .MuiLinearProgress-bar": {
+    backgroundColor: "var(--primary-color)", // bar color
 
-export default LineLoader;
+  },
+}));
+
+export default function LineLoader() {
+  return <CustomLinearProgress />;
+}
