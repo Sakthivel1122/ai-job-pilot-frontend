@@ -14,6 +14,7 @@ interface IAuthPopupProps {
   dataObj: any;
   inputFieldList: TAuthInputFieldData[];
   isSubmitBtnLoading: boolean;
+  showInFullScreen?: boolean;
   resetForm: () => void;
   onClose: () => void;
   onInputFieldChange: (
@@ -29,6 +30,7 @@ const AuthPopup: React.FC<IAuthPopupProps> = ({
   dataObj,
   inputFieldList,
   isSubmitBtnLoading,
+  showInFullScreen,
   resetForm,
   onClose,
   onInputFieldChange,
@@ -47,7 +49,7 @@ const AuthPopup: React.FC<IAuthPopupProps> = ({
   }, [isOpen]);
 
   return (
-    <Popup isOpen={isOpen} onClose={onClose}>
+    <Popup isOpen={isOpen} onClose={onClose} noOutsideClickClose={true} showInFullScreen={showInFullScreen}>
       {title && <h1 className={styles.AuthPopup_title}>{title}</h1>}
       <form className={styles.AuthPopup_form_wrapper} onSubmit={onSubmit}>
         {inputFieldList &&

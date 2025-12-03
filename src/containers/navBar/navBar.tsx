@@ -12,7 +12,7 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { loginApi, signUpApi } from "@/app/api/login/login";
 import { getSession, signIn } from "next-auth/react";
 import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
-import { ROUTES } from "@/constants/app-constants";
+import { BREAK_POINTS, ROUTES } from "@/constants/app-constants";
 import { useRouter } from "next/navigation";
 import { handleLogout } from "@/utils/sharedFunctions";
 import Link from "next/link";
@@ -285,7 +285,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
                 <ProfileIcon
                   className={styles.NavBar_profile_icon}
                   onClick={() => {
-                    handleLogout();
+                    handleLogout(ROUTES.HOME);
                     setSessionData({});
                   }}
                 />
@@ -322,6 +322,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onInputFieldChange={handleSignUpFieldOnChange}
             onSubmit={handleSignUpSubmit}
             resetForm={handleResetSignUpForm}
+            showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
           />
 
           <AuthPopup
@@ -336,6 +337,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onInputFieldChange={handleLoginFieldOnChange}
             onSubmit={handleLoginSubmit}
             resetForm={handleResetLoginForm}
+            showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
           />
         </>
       )}

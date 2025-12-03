@@ -1,8 +1,9 @@
 @import "./variables.scss";
 
 @mixin title1 {
-  font-size: 5rem;
+  font-size: 6rem;
   font-family: $primary-font;
+  line-height: 1.2;
 
   @include dark-mode {
     color: white;
@@ -57,6 +58,18 @@
 
 @mixin dark-mode {
   :global(html.dark) & {
+    @content;
+  }
+}
+
+@mixin respond-from($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin respond-to($breakpoint) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
     @content;
   }
 }

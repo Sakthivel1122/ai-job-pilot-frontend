@@ -1,12 +1,27 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import styles from "./landingPage.module.scss";
 import Button from "@/components/button/button";
 import StatusTag from "@/components/statusTag/statusTag";
 import SimpleApplicationInfoCard from "@/components/simpleApplicationInfoCard/simpleApplicationInfoCard";
 import { applicationCardList, featureCardList } from "@/constants/landingPage";
 import FeatureInfoCard from "@/components/featureInfoCard/featureInfoCard";
+import { BREAK_POINTS } from "@/constants/app-constants";
 
 const LandingPage = () => {
+  const [innerWidth, setInnerWidth] = useState<number>();
+
+  useEffect(() => {
+    setInnerWidth(window.innerWidth);
+    const handleUpdateWidth = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleUpdateWidth);
+    return () => {
+      window.removeEventListener("resize", handleUpdateWidth);
+    };
+  }, []);
+
   return (
     <>
       <main className={styles.LandingPage}>
@@ -15,7 +30,8 @@ const LandingPage = () => {
             🚀 AI-Powered Job Search Assistant
           </p>
           <h1 className={styles.LandingPage_big_title_text}>
-            Heading Text to display here
+            {/* Heading Text to display here <br /> is a long text */}
+            Land Your Dream Job with AI-Powered Insights
           </h1>
           <p className={styles.LandingPage_description_text}>
             Track applications, optimize your resume with AI feedback, and never
@@ -34,8 +50,9 @@ const LandingPage = () => {
             </p>
             <div className={styles.LandingPage_hovering_card_tag_wrapper}>
               <StatusTag text="12 Applied" type="grey" />
-              <StatusTag text="3 Interviews" type="default" />
-              <StatusTag text="1 Offer" type="selected" />
+              {(innerWidth && innerWidth > BREAK_POINTS.EXTRA_SMALL) &&
+              <StatusTag text="3 Interviews" type="default" />}
+              <StatusTag text="2 Offers" type="selected" />
             </div>
           </div>
           <div className={styles.LandingPage_hovering_card_wrapper}>

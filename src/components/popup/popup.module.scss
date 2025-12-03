@@ -50,6 +50,13 @@
   }
 }
 
+.full_screen_popup {
+  max-height: 100dvh;
+  height: 100dvh;
+  max-width: 100%;
+  width: 100%;
+}
+
 .close_icon_wrapper {
   position: absolute;
   cursor: pointer;

@@ -10,6 +10,7 @@ interface PopupProps {
   customClass?: string;
   onClose: () => void;
   noOutsideClickClose?: boolean;
+  showInFullScreen?: boolean;
 }
 
 const Popup: React.FC<PopupProps> = ({
@@ -19,6 +20,7 @@ const Popup: React.FC<PopupProps> = ({
   showCloseBtn = true,
   customClass,
   noOutsideClickClose,
+  showInFullScreen = false,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -40,7 +42,7 @@ const Popup: React.FC<PopupProps> = ({
       <div
         className={`${styles.popup} ${
           isOpen ? styles.popupEnter : styles.popupExit
-        } ${customClass}`}
+        } ${showInFullScreen && styles.full_screen_popup} ${customClass}`}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseBtn && (
