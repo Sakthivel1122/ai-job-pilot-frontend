@@ -14,8 +14,9 @@
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 5px 35px -5px rgb(0 0 0 / 0.15);
+    box-shadow: 0 5px 35px -5px rgba(0, 0, 0, 0.15);
     transform: scale(1.01);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) , rgba(0, 0, 0, 0.01));
   }
 
   &_title {

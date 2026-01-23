@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./navBar.module.scss";
 import { navBarItemList } from "@/constants/navBarConstants";
 import ProfileIcon from "../../components/profileIcon/profileIcon";
@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { handleLogout } from "@/utils/sharedFunctions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ProfileDropdown from "../profileDropdown/profileDropdown";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 interface INavBarProps {
   initialSession: any;
@@ -64,7 +66,7 @@ const loginFieldList: TAuthInputFieldData[] = [
     id: 1,
     label: "Email",
     name: "email_id",
-    placeholder: "Enter your full name",
+    placeholder: "Enter Email Id",
     Icon: IoPersonOutline,
     required: true,
   },
@@ -99,6 +101,10 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
     initialSession ? initialSession : {}
   );
   const [clientSideRendering, setClientSideRendering] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
+  const profileIconRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -243,15 +249,17 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
     }));
   };
 
+  useOutsideClick(profileDropdownRef, () => {
+    setIsProfileDropdownOpen(false);
+  }, [profileIconRef]);
+
   useEffect(() => {
     setClientSideRendering(true);
-    // const getCall = async () => {
-    //   const session = await getSession();
-    //   const accessToken = session?.accessToken ?? "";
-    //   console.log("accessToken", session);
-    //   setIsLoggedIn(session?.isLoggedIn);
-    // }
-    // getCall();
+    const getCall = async () => {
+      const session_data = await getSession();
+      setSessionData(session_data);
+    }
+    getCall();
   }, []);
 
   const getSessionData = async () => {
@@ -282,13 +290,27 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
                     </Link>
                   ))}
                 </ul>
-                <ProfileIcon
-                  className={styles.NavBar_profile_icon}
-                  onClick={() => {
-                    handleLogout(ROUTES.HOME);
-                    setSessionData({});
-                  }}
-                />
+                <div className={styles.NavBar_profile_icon_wrapper}>
+                  <div ref={profileIconRef}>
+                  <ProfileIcon
+                    className={`${styles.NavBar_profile_icon} ${isProfileDropdownOpen ? styles.active : ""}`}
+                    onClick={() => {
+                      setIsProfileDropdownOpen(!isProfileDropdownOpen);
+                    }}
+                  />
+                  </div>
+                  {isProfileDropdownOpen &&
+                    <ProfileDropdown
+                      ref={profileDropdownRef}
+                      userData={sessionData.user}
+                      onLogoutClick={
+                        () => {
+                          handleLogout(ROUTES.HOME);
+                          setSessionData({});
+                        }
+                      }
+                    />}
+                </div>
               </div>
             ) : (
               <div className={styles.NavBar_signin_btn_wrapper}>
@@ -323,6 +345,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onSubmit={handleSignUpSubmit}
             resetForm={handleResetSignUpForm}
             showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
+            submitBtnText="Create Account"
           />
 
           <AuthPopup
@@ -338,6 +361,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onSubmit={handleLoginSubmit}
             resetForm={handleResetLoginForm}
             showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
+            submitBtnText="Sign In"
           />
         </>
       )}

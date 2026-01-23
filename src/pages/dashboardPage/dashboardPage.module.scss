@@ -107,4 +107,33 @@
     text-align: center;
     margin-top: 10rem;
   }
+
+  &_pagination {
+    &_container {
+      align-self: center;
+      margin: 1.6rem 0;
+    }
+
+    &_arrow_icon {
+      font-size: 2.6rem !important;
+    }
+
+    &_item {
+      font-size: 1.6rem !important;
+      height: 4rem !important;
+      width: 4rem !important;
+
+      &:hover {
+        background-color: rgba(0,0,0,0.15) !important;
+      }
+    }
+
+    &_active_item {
+      background-color: $primary-color !important;
+      &:hover {
+        background-color: $primary-color !important;
+        opacity: 0.9 !important;
+      }
+    }
+  }
 }

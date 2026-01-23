@@ -10,7 +10,7 @@ export const createUpdateJobApplicationApi = (payload: any, callback: (res: any)
 };
 
 export const getJobApplicationsApi = (params: any, callback: (res: any) => void = () => {}) => {
-  fetchCall(API_CONSTANTS.JOB_APPLICATION, API_METHODS.GET, params, callback);
+  fetchCall(API_CONSTANTS.GET_JOB_APPLICATION, API_METHODS.GET, params, callback);
 };
 
 export const deleteJobApplicationsApi = (params: string, callback: (res: any) => void = () => {}) => {

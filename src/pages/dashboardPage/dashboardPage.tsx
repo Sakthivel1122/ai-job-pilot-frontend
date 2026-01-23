@@ -28,6 +28,7 @@ import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/app-constants";
 import PageLoader from "@/components/pageLoader/pageLoader";
+import Pagination from "@/components/pagination/pagination";
 
 type CountKey = "totalApplications" | "applied" | "interviews" | "offers";
 
@@ -79,7 +80,7 @@ const statusDropdownFilterOptions: TDropdownOptionData[] = [
   {
     id: 1,
     label: "All Status",
-    data: "all_Status",
+    data: "all",
   },
   {
     id: 2,
@@ -93,11 +94,26 @@ const statusDropdownFilterOptions: TDropdownOptionData[] = [
   },
   {
     id: 4,
+    label: "Interviewing",
+    data: "interviewing",
+  },
+  {
+    id: 5,
+    label: "Withdrawn",
+    data: "withdrawn",
+  },
+  {
+    id: 6,
     label: "Offer Received",
     data: "offer_received",
   },
   {
-    id: 5,
+    id: 7,
+    label: "Selected",
+    data: "selected",
+  },
+  {
+    id: 8,
     label: "Rejected",
     data: "rejected",
   },
@@ -106,6 +122,8 @@ const statusDropdownFilterOptions: TDropdownOptionData[] = [
 type TGetJobApplicationParams = {
   page: number;
   limit: number;
+  status?: string;
+  search_text?: string;
 };
 
 const DashboardPage = () => {
@@ -132,6 +150,9 @@ const DashboardPage = () => {
     TJobApplicationData | undefined
   >();
   const [pageLoader, setPageLoader] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   const router = useRouter();
 
@@ -150,6 +171,9 @@ const DashboardPage = () => {
     getJobApplicationsApi(params, (res) => {
       if (res?.response?.status === 200) {
         setJobApplicationList(res?.content?.data);
+        setCurrentPage(params?.page);
+        const totalPages = Math.ceil(res?.content?.total_records / itemsPerPage);
+        setTotalPage(totalPages);
         setIsGetApplicationApiLoading(false);
       } else {
         setIsGetApplicationApiLoading(false);
@@ -157,12 +181,16 @@ const DashboardPage = () => {
     });
   };
 
-  const createUpdateJobApplicationOnSuccess = () => {
+  const createUpdateJobApplicationOnSuccess = (isEdit : boolean) => {
     updateDashboardData();
     const params: TGetJobApplicationParams = {
       page: 1,
-      limit: 100,
+      limit: itemsPerPage,
+      status: selectedDropDownOption.data,
     };
+    if (searchText) {
+      params.search_text = searchText
+    }
     updateJobApplicationList(params);
     setJobApplicationFormPopup(false);
   };
@@ -175,8 +203,12 @@ const DashboardPage = () => {
         updateDashboardData();
         const params: TGetJobApplicationParams = {
           page: 1,
-          limit: 100,
+          limit: itemsPerPage,
+          status: selectedDropDownOption.data,
         };
+        if (searchText) {
+          params.search_text = searchText
+        }
         updateJobApplicationList(params);
       } else {
         alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
@@ -198,12 +230,55 @@ const DashboardPage = () => {
     });
   };
 
+  const handleSearchInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      const params: TGetJobApplicationParams = {
+        page: 1,
+        limit: itemsPerPage,
+        status: selectedDropDownOption.data,
+      };
+      if (searchText) {
+        params.search_text = searchText
+      }
+      updateJobApplicationList(params);
+    }
+  };
+
+  const handleDropdownOnChange = (value: TDropdownOptionData) => {
+    if (value.data === selectedDropDownOption.data) return;
+    setDropDown(value);
+    const params: TGetJobApplicationParams = {
+      page: 1,
+      limit: itemsPerPage,
+      status: value.data,
+    };
+    if (searchText) {
+      params.search_text = searchText;
+    }
+    updateJobApplicationList(params);
+  }
+
+  const handlePaginationOnChange = (page: number) => {
+    if (page === currentPage) return;
+    const params: TGetJobApplicationParams = {
+      page: page,
+      limit: itemsPerPage,
+      status: selectedDropDownOption.data,
+    };
+    if (searchText) {
+      params.search_text = searchText
+    }
+    updateJobApplicationList(params);
+  }
+
   useEffect(() => {
     setClientSideRendering(true);
     updateDashboardData();
     const params: TGetJobApplicationParams = {
       page: 1,
-      limit: 100,
+      limit: itemsPerPage,
     };
     updateJobApplicationList(params);
   }, []);
@@ -242,8 +317,9 @@ const DashboardPage = () => {
           <Input
             Icon={IoIosSearch}
             value={searchText}
-            placeholder="Search here..."
+            placeholder="Type here and click enter to search..."
             onChange={handleSearchOnChange}
+            onKeyDown={handleSearchInputKeyDown}
             customWrapperClass={
               styles.DashboardPage_search_bar_input_box_wrapper
             }
@@ -263,7 +339,7 @@ const DashboardPage = () => {
             //   />
             // }
             options={statusDropdownFilterOptions}
-            onSelect={(value) => setDropDown(value)}
+            onSelect={handleDropdownOnChange}
           />
         </div>
         <div className={styles.DashboardPage_application_cards_wrapper}>
@@ -274,8 +350,9 @@ const DashboardPage = () => {
               </p>
               <LineLoader />
             </div>
-          ) : jobApplicationList && jobApplicationList.length > 0 ? (
-            jobApplicationList.map((data, index) => (
+          ) : jobApplicationList && jobApplicationList.length > 0 ?
+            <>
+            {jobApplicationList.map((data, index) => (
               <ApplicationInfoCard
                 key={data?._id || index}
                 jobTitle={data?.role}
@@ -297,8 +374,18 @@ const DashboardPage = () => {
                   router.push(`${ROUTES.JOB_APPLICATION}/${data._id}`);
                 }}
               />
-            ))
-          ) : (
+            ))}
+            <Pagination
+              customClassName={styles.DashboardPage_pagination_container}
+              customActiveClass={styles.DashboardPage_pagination_active_item}
+              customItemClassName={styles.DashboardPage_pagination_item}
+              arrowIconClassName={styles.DashboardPage_pagination_arrow_icon}
+              page={currentPage}
+              count={totalPage}
+              onChange={(newPage) => handlePaginationOnChange(newPage)}
+            />
+          </>
+          : (
             <p className={styles.DashboardPage_loader_text}>
               No Applications Found
             </p>

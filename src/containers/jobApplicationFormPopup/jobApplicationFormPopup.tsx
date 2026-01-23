@@ -48,7 +48,7 @@ interface IJobApplicationFormPopupProps {
   isOpen: boolean;
   applicationData?: TJobApplicationData;
   onClose: () => void;
-  onSuccess?: () => void;
+  onSuccess?: (val: boolean) => void;
 }
 
 const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
@@ -150,7 +150,7 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
 
     createUpdateJobApplicationApi(payload, (res) => {
       if (res?.response?.status === 200) {
-        onSuccess?.();
+        onSuccess?.(applicationData?._id ? true : false);
         alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
       } else {
         alertMessage(res?.response?.message, ALERT_TYPE.ERROR);

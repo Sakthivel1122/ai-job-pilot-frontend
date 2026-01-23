@@ -17,6 +17,7 @@ interface IInputProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   Icon?: IconType;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -32,6 +33,7 @@ const Input: React.FC<IInputProps> = ({
   customInputBoxClass,
   Icon,
   onChange,
+  onKeyDown,
 }) => {
   const isTextArea = type === "textarea";
 
@@ -69,6 +71,7 @@ const Input: React.FC<IInputProps> = ({
             disabled={disabled}
             required={required}
             onChange={onChange}
+            onKeyDown={onKeyDown}
           />
         )}
       </div>

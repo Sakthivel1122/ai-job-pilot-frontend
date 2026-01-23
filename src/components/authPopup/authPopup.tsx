@@ -15,6 +15,7 @@ interface IAuthPopupProps {
   inputFieldList: TAuthInputFieldData[];
   isSubmitBtnLoading: boolean;
   showInFullScreen?: boolean;
+  submitBtnText?: string;
   resetForm: () => void;
   onClose: () => void;
   onInputFieldChange: (
@@ -31,6 +32,7 @@ const AuthPopup: React.FC<IAuthPopupProps> = ({
   inputFieldList,
   isSubmitBtnLoading,
   showInFullScreen,
+  submitBtnText,
   resetForm,
   onClose,
   onInputFieldChange,
@@ -67,7 +69,7 @@ const AuthPopup: React.FC<IAuthPopupProps> = ({
           ))}
         <Button
           className={styles.AuthPopup_submit_btn}
-          content="Create Account"
+          content={submitBtnText ? submitBtnText : "Submit"}
           type="submit"
           isLoading={isSubmitBtnLoading}
         />
