@@ -37,11 +37,19 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
 
   const handleOnUploadResumeBtnClick = (
     resumeName: string,
-    resumePdfFile: File | null
+    resumePdfFile?: File | null,
+    resumeText?: string
   ) => {
     const formData = new FormData();
     if (resumePdfFile) {
       formData.append("resume", resumePdfFile);
+      formData.append("resume_content_type", "file");
+    } else if (resumeText) {
+      formData.append("resume_text_content", resumeText);
+      formData.append("resume_content_type", "text");
+    } else {
+      alertMessage("Please select resume file or enter resume text", ALERT_TYPE.WARNING);
+      return;
     }
     formData.append("resume_name", resumeName);
     formData.append("job_application_id", jobApplicationDetails?.id);
@@ -125,11 +133,15 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
         </div>
         {enableUploadResume && (
           <UploadNewResume
+            title="Upload New Resume"
             customContainerClass={
               styles.JobApplicationPage_upload_new_resume_container
             }
             onUploadClick={handleOnUploadResumeBtnClick}
             isUploadBtnLoading={isUploadResumeBtnLoading}
+            showResumeNameField={true}
+            showJobDescriptionField={false}
+            resumeTextAreaRows={8}
           />
         )}
         <div className={styles.JobApplicationPage_uploaded_resumes_container}>

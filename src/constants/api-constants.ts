@@ -10,6 +10,7 @@ export const API_CONSTANTS = {
   GET_JOB_APPLICATION_DETAILS: `${BaseUrl}/job-application/api/v1/get-job-application-details`,
   UPLOAD_RESUME: `${BaseUrl}/resume/api/v1/upload-resume`,
   GET_RESUME_LIST: `${BaseUrl}/resume/api/v1/get-resume-list`,
+  RESUME_ANALYSIS: `${BaseUrl}/resume/api/v1/get-resume-analysis`,
   TOKEN: `${BaseUrl}/token`,
 }
 

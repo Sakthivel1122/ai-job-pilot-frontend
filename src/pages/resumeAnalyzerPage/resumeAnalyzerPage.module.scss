@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.ResumeAnalyzerPage {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  &_title {
+    @include heading1;
+    font-size: 3rem;
+  }
+
+  &_title2 {
+    @include heading1;
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  &_description {
+    @include para1;
+    line-height: 2.6rem;
+    margin-bottom: 1rem;
+  }
+
+  &_resume_card_wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+}

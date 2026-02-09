@@ -5,7 +5,7 @@ import { TGetResumeListApiResponse } from "@/types/apiResponseTypes";
 export const uploadResumeApi = (
   payload: any,
   callback: (res: any) => void = () => {},
-  isServerSide: boolean = false
+  isServerSide: boolean = false,
 ) => {
   fetchCall(
     API_CONSTANTS.UPLOAD_RESUME,
@@ -18,13 +18,33 @@ export const uploadResumeApi = (
       customHeader: {
         "Content-Type": undefined,
       },
-    }
+    },
   );
 };
 
 export const getResumeListApi = (
   payload: any,
-  callback: (res: TGetResumeListApiResponse) => void = () => {}
+  callback: (res: TGetResumeListApiResponse) => void = () => {},
 ) => {
   fetchCall(API_CONSTANTS.GET_RESUME_LIST, API_METHODS.GET, payload, callback);
+};
+
+export const getResumeAnalysisApi = (
+  payload: any,
+  callback: (res: any) => void = () => {},
+  isServerSide: boolean = false,
+) => {
+  fetchCall(
+    API_CONSTANTS.RESUME_ANALYSIS,
+    API_METHODS.POST,
+    payload,
+    callback,
+    isServerSide,
+    undefined,
+    {
+      customHeader: {
+        "Content-Type": undefined,
+      },
+    },
+  );
 };

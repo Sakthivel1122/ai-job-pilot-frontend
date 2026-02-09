@@ -1,6 +1,6 @@
 "use client";
 import Input from "@/components/input/input";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./uploadNewResume.module.scss";
 import Button from "@/components/button/button";
 import { FiUpload } from "react-icons/fi";
@@ -11,16 +11,33 @@ import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
 interface IUploadNewResumeProps {
   customContainerClass?: string;
   isUploadBtnLoading?: boolean;
-  onUploadClick: (resumeName: string, resumePdfFile: File | null) => void;
+  title?: string;
+  submitBtnText?: string;
+  showResumeNameField: boolean;
+  showJobDescriptionField: boolean;
+  resumeTextAreaRows?: number;
+  onUploadClick: (
+    resumeName: string,
+    resumePdfFile?: File | null,
+    resumeText?: string,
+    jobDescription?: string,
+  ) => void;
 }
 
 const UploadNewResume: React.FC<IUploadNewResumeProps> = ({
   customContainerClass,
-  onUploadClick,
   isUploadBtnLoading = false,
+  title = "Upload Resume",
+  submitBtnText = "Upload Resume",
+  showResumeNameField,
+  showJobDescriptionField,
+  resumeTextAreaRows = 4,
+  onUploadClick,
 }) => {
   const [fileName, setFileName] = useState<string>("");
   const [resumeName, setResumeName] = useState<string>("");
+  const [resumeText, setResumeText] = useState<string>("");
+  const [jobDescription, setJobDescription] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [resumePdfFile, setResumePdfFile] = useState<File | null>(null);
 
@@ -55,25 +72,47 @@ const UploadNewResume: React.FC<IUploadNewResumeProps> = ({
   };
 
   const handleUploadResumeBtnClick = () => {
-    onUploadClick(resumeName, resumePdfFile);
+    onUploadClick(resumeName, resumePdfFile, resumeText, jobDescription);
   };
+
+  const isSubmitBtnClickable = useMemo(() => {
+    const isHaveResumeContent = resumeText || resumePdfFile ? true : false;
+    let isRequiredFieldFilled = true;
+    if (showResumeNameField && showJobDescriptionField) {
+      isRequiredFieldFilled = resumeName && jobDescription ? true : false;
+    } else if (showResumeNameField) {
+      isRequiredFieldFilled = resumeName ? true : false;
+    } else if (showJobDescriptionField) {
+      isRequiredFieldFilled = jobDescription ? true : false;
+    }
+    return isHaveResumeContent && isRequiredFieldFilled;
+  }, [
+    showResumeNameField,
+    showJobDescriptionField,
+    resumeName,
+    jobDescription,
+    resumeText,
+    resumePdfFile,
+  ]);
 
   return (
     <div className={`${styles.UploadNewResume} ${customContainerClass}`}>
       <div className={styles.UploadNewResume_title_wrapper}>
-        <h3 className={styles.UploadNewResume_title}>Upload New Resume</h3>
+        <h3 className={styles.UploadNewResume_title}>{title}</h3>
       </div>
-      <Input
-        label="Resume Name *"
-        placeholder="eg., Frontend Developer Resume v2.1"
-        value={resumeName}
-        onChange={(e) => {
-          setResumeName(e.target.value);
-        }}
-      />
+      {showResumeNameField && (
+        <Input
+          label="Resume Name *"
+          placeholder="eg., Frontend Developer Resume v2.1"
+          value={resumeName}
+          onChange={(e) => {
+            setResumeName(e.target.value);
+          }}
+        />
+      )}
       <div className={styles.UploadNewResume_resume_file_input_container}>
         <p className={styles.UploadNewResume_resume_file_input_label}>
-          Resume File (PDF)*
+          Resume File (PDF)
         </p>
         <div className={styles.UploadNewResume_resume_file_input_wrapper}>
           <input
@@ -117,11 +156,38 @@ const UploadNewResume: React.FC<IUploadNewResumeProps> = ({
             disabled={isUploadBtnLoading}
           />
         </div>
+        <Input
+          customContainerClass={styles.UploadNewResume_input_field}
+          label="Or paste your resume text:"
+          value={resumeText}
+          type="textarea"
+          placeholder="Paste the resume text here for AI analysis..."
+          onChange={(e) => {
+            setResumeText(e.target.value);
+          }}
+          textAreaRows={resumeTextAreaRows}
+        />
+        {showJobDescriptionField && (
+          <Input
+            customContainerClass={styles.UploadNewResume_input_field}
+            label="Job Description"
+            value={jobDescription}
+            type="textarea"
+            placeholder="Paste the job description here for AI analysis..."
+            onChange={(e) => {
+              setJobDescription(e.target.value);
+            }}
+            textAreaRows={8}
+          />
+        )}
         <Button
-          content={"Upload Resume"}
+          content={submitBtnText}
           onClick={handleUploadResumeBtnClick}
-          className={styles.UploadNewResume_resume_file_input_upload_btn}
+          className={`${styles.UploadNewResume_resume_file_input_upload_btn} ${
+            isSubmitBtnClickable
+          }`}
           isLoading={isUploadBtnLoading}
+          disabled={!isSubmitBtnClickable}
           customLoader={
             <p
               className={

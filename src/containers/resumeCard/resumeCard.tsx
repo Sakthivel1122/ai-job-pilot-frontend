@@ -8,22 +8,36 @@ import moment from "moment";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface IResumeCardProps {
+  showViewFeedbackBtn?: boolean;
+  showResumeName?: boolean;
+  showUploadTime?: boolean;
+  customContainerClass?: string;
   data: TResumeData;
 }
-const ResumeCard: React.FC<IResumeCardProps> = ({ data }) => {
+const ResumeCard: React.FC<IResumeCardProps> = ({
+  showViewFeedbackBtn = true,
+  showResumeName = true,
+  showUploadTime = true,
+  customContainerClass = "",
+  data,
+}) => {
   const [showFeedback, setShowFeedback] = useState(false);
 
   const uploadedDate = moment(data?.created_at).format("DD MMM YYYY, h:mm A");
   return (
-    <div className={styles.ResumeCard}>
+    <div className={`${styles.ResumeCard} ${customContainerClass}`}>
       <div className={styles.ResumeCard_top}>
-        <div className={styles.ResumeCard_top_resume_name_wrapper}>
-          <p className={styles.ResumeCard_top_resume_name}>{data?.name}</p>
-          <StatusTag text={`${data?.ai_score * 10}% Match`} />
-        </div>
-        <p className={styles.ResumeCard_top_uploaded_time}>
-          Uploaded at {uploadedDate}
-        </p>
+        {showResumeName && (
+          <div className={styles.ResumeCard_top_resume_name_wrapper}>
+            <p className={styles.ResumeCard_top_resume_name}>{data?.name}</p>
+            <StatusTag text={`${data?.ai_score * 10}% Match`} />
+          </div>
+        )}
+        {showUploadTime && (
+          <p className={styles.ResumeCard_top_uploaded_time}>
+            Uploaded at {uploadedDate}
+          </p>
+        )}
         <div className={styles.ResumeCard_top_ai_score_wrapper}>
           <div className={styles.ResumeCard_top_ai_score_title_wrapper}>
             <p className={styles.ResumeCard_top_ai_score_title}>
@@ -40,17 +54,18 @@ const ResumeCard: React.FC<IResumeCardProps> = ({ data }) => {
             />
           </div>
         </div>
-        <button
-          className={styles.ResumeCard_top_view_feedback_btn}
-          onClick={() => setShowFeedback(!showFeedback)}
-        >
-          <p>{showFeedback ? "Hide Feedback" : "View Feedback"}</p>
-          <IoIosArrowDown
-            className={`${styles.ResumeCard_top_view_feedback_btn_icon} ${
-              showFeedback && styles.open
-            }`}
-          />
-          {/* {showFeedback ? (
+        {showViewFeedbackBtn && (
+          <button
+            className={styles.ResumeCard_top_view_feedback_btn}
+            onClick={() => setShowFeedback(!showFeedback)}
+          >
+            <p>{showFeedback ? "Hide Feedback" : "View Feedback"}</p>
+            <IoIosArrowDown
+              className={`${styles.ResumeCard_top_view_feedback_btn_icon} ${
+                showFeedback && styles.open
+              }`}
+            />
+            {/* {showFeedback ? (
             <IoIosArrowUp
               className={styles.ResumeCard_top_view_feedback_btn_icon}
             />
@@ -59,9 +74,10 @@ const ResumeCard: React.FC<IResumeCardProps> = ({ data }) => {
               className={styles.ResumeCard_top_view_feedback_btn_icon}
             />
           )} */}
-        </button>
+          </button>
+        )}
       </div>
-      {showFeedback && (
+      {(showFeedback || !showViewFeedbackBtn) && (
         <div className={styles.ResumeCard_bottom}>
           <p className={styles.ResumeCard_bottom_title}>AI Summary</p>
           <div className={styles.ResumeCard_bottom_text}>

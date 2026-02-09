@@ -13,6 +13,7 @@ interface IInputProps {
   customContainerClass?: string;
   customWrapperClass?: string;
   customInputBoxClass?: string;
+  textAreaRows?: number;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -31,6 +32,7 @@ const Input: React.FC<IInputProps> = ({
   customContainerClass,
   customWrapperClass,
   customInputBoxClass,
+  textAreaRows = 4,
   Icon,
   onChange,
   onKeyDown,
@@ -57,7 +59,7 @@ const Input: React.FC<IInputProps> = ({
             disabled={disabled}
             required={required}
             onChange={onChange}
-            rows={4}
+            rows={textAreaRows}
           />
         ) : (
           <input
