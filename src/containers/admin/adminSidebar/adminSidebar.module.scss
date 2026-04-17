@@ -1,0 +1,86 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/variables.scss";
+
+.AdminSidebar {
+  width: 26rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(251, 251, 251);
+
+  &_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 7rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 1.2rem;
+  }
+  &_logo {
+    font-size: 2rem;
+    color: white;
+
+    &_wrapper {
+      @include flex-center;
+      background-color: $primary-color;
+      width: fit-content;
+      height: fit-content;
+      padding: 0.6rem;
+      border-radius: 0.6rem;
+      height: 3.6rem;
+      width: 3.6rem;
+    }
+  }
+
+  &_details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    &_text1 {
+      @include para2;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+
+    &_text2 {
+      @include para2;
+    }
+  }
+
+  &_content {
+    padding: 1rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  &_item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      background-color: rgb(225, 225, 225);
+    }
+
+    &.active {
+      // background-color: $primary-color;
+      // color: white
+    }
+
+    &_text {
+      @include para2;
+      font-size: 1.4rem;
+      color: inherit;
+    }
+
+    &_icon {
+      font-size: 1.8rem;
+      color: inherit;
+    }
+  }
+}

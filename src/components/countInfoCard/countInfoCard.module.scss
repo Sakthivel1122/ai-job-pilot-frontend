@@ -131,6 +131,41 @@
       }
     }
   }
+
+  &.plain {
+    // background-image: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,0.12);
+
+    &:hover {
+      transform: unset;
+    }
+    .CountInfoCard {
+      &_icon_wrapper {
+        background-color: #22c55e33;
+      }
+
+      &_icon {
+        color: $text-color-light;
+      }
+
+      &_icon_wrapper {
+        background-color: transparent;
+      }
+
+      &_title {
+        color: black;
+      }
+    
+      &_count {
+        // color: #21C45D;
+      }
+    
+      &_description {
+        color: $text-color-light;
+      }
+    }
+  }
 }
 
 .class {

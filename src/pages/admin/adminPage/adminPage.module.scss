@@ -1,0 +1,19 @@
+@import "../../../styles/mixins.scss";
+
+.AdminPage {
+  padding: 2rem;
+  &_title {
+    @include heading1;
+  }
+
+  &_description {
+    @include para1;
+    margin-top: 0.5rem;
+  }
+
+  &_card_wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
