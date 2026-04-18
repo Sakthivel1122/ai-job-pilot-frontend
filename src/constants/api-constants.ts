@@ -12,6 +12,9 @@ export const API_CONSTANTS = {
   GET_RESUME_LIST: `${BaseUrl}/resume/api/v1/get-resume-list`,
   RESUME_ANALYSIS: `${BaseUrl}/resume/api/v1/get-resume-analysis`,
   TOKEN: `${BaseUrl}/token`,
+  ADMIN: {
+    DASHBOARD: `${BaseUrl}/admin/api/v1/dashboard`,
+  }
 }
 
 export const API_METHODS = {

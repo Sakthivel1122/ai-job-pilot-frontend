@@ -1,6 +1,7 @@
 import { getJobApplicationDetailsApi } from "@/app/api/jobApplication/jobApplication";
 import JobApplicationPage from "@/pages/jobApplicationPage/jobApplicationPage";
 import { TJobApplicationDetails } from "@/types/apiResponseTypes";
+import { AuthWrapper } from "@/wrappers/authWrapper";
 import React from "react";
 
 const JobApplication = async ({
@@ -32,7 +33,9 @@ const JobApplication = async ({
     await getJobApplicationDetailsPromise(payload);
   return (
     <>
+    <AuthWrapper pathname="user_pages">
       <JobApplicationPage jobApplicationDetails={jobApplicationDetails} />
+    </AuthWrapper>
     </>
   );
 };

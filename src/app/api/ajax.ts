@@ -124,10 +124,6 @@ axiosInstance.interceptors.response.use(
           if (result?.ok) {
             const newAccessToken = tokenData?.access_token;
             if (newAccessToken) {
-              // Save new token wherever appropriate
-              if (typeof window !== "undefined") {
-                localStorage.setItem("accessToken", newAccessToken);
-              }
   
               // Update the original request with new token
               originalRequest.headers = {

@@ -1,9 +1,10 @@
 export const ROUTES = {
     HOME: "/",
-    DASHBOARD: "/dashboard",
-    SIGNUP: "/signup",
-    AI_RESUME_ANALYZER: "/ai-resume-analyzer",
-    JOB_APPLICATION: "/job-application", 
+    USER: {
+        DASHBOARD: "/dashboard",
+        AI_RESUME_ANALYZER: "/ai-resume-analyzer",
+        JOB_APPLICATION: "/job-application", 
+    },
     ADMIN: {
         DASHBOARD: "/admin",
         AI_PROFILE: "/admin/ai-profile",

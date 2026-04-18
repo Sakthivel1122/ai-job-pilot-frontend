@@ -1,6 +1,6 @@
 import AdminLayout from "@/layouts/adminLayout/adminLayout";
-import UserLayout from "@/layouts/userLayout/userLayout";
 import { authOptions } from "@/lib/auth";
+import { AuthWrapper } from "@/wrappers/authWrapper";
 import { getServerSession } from "next-auth";
 import React, { ReactNode } from "react";
 
@@ -11,10 +11,11 @@ interface IAdminLayoutPageProps {
 const AdminLayoutPage: React.FC<IAdminLayoutPageProps> = async ({
   children,
 }) => {
-  const session = await getServerSession(authOptions);
   return (
     <>
+    <AuthWrapper pathname="admin_pages">
       <AdminLayout>{children}</AdminLayout>
+    </AuthWrapper>
     </>
   );
 };

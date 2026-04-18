@@ -1,10 +1,13 @@
 import ResumeAnalyzerPage from "@/pages/resumeAnalyzerPage/resumeAnalyzerPage";
+import { AuthWrapper } from "@/wrappers/authWrapper";
 import React from "react";
 
 const ResumeAnalyzer = () => {
   return (
     <>
-      <ResumeAnalyzerPage />
+      <AuthWrapper pathname="user_pages">
+        <ResumeAnalyzerPage />
+      </AuthWrapper>
     </>
   );
 };

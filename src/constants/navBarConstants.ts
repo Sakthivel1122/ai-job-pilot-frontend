@@ -10,11 +10,11 @@ export const navBarItemList: TNavBarItem[] = [
   {
     id: 1,
     label: "Dashboard",
-    link: ROUTES.DASHBOARD,
+    link: ROUTES.USER.DASHBOARD,
   },
   {
     id: 2,
     label: "AI Resume Analyzer",
-    link: ROUTES.AI_RESUME_ANALYZER,
+    link: ROUTES.USER.AI_RESUME_ANALYZER,
   },
 ];

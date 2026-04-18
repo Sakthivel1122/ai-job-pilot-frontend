@@ -8,12 +8,16 @@
 
   &_description {
     @include para1;
-    margin-top: 0.5rem;
+    margin-top: 1.2rem;
   }
 
   &_card_wrapper {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.8rem;
+  }
+
+  &_card {
+    
   }
 }

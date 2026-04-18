@@ -229,7 +229,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
           if (userData?.role === "admin") {
             router.push(ROUTES.ADMIN.DASHBOARD);
           } else {
-            router.push(ROUTES.DASHBOARD);
+            router.push(ROUTES.USER.DASHBOARD);
           }
         } else {
           alertMessage(`${result?.error}`, ALERT_TYPE.ERROR);

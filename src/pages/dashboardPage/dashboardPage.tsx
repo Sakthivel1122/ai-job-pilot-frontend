@@ -371,7 +371,7 @@ const DashboardPage = () => {
                 }}
                 onClick={() => {
                   setPageLoader(true);
-                  router.push(`${ROUTES.JOB_APPLICATION}/${data._id}`);
+                  router.push(`${ROUTES.USER.JOB_APPLICATION}/${data._id}`);
                 }}
               />
             ))}
