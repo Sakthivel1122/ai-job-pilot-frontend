@@ -2,6 +2,7 @@
 
 .AdminPage {
   padding: 2rem;
+  overflow-y: auto;
   &_title {
     @include heading1;
   }
@@ -17,7 +18,19 @@
     margin-top: 1.8rem;
   }
 
-  &_card {
-    
+  &_cart_wrapper {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+  }
+
+  &_application_status_card {
+    flex: 1;
+    margin-top: 2rem;
+    &_content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
   }
 }
