@@ -1,6 +1,6 @@
 "use client";
-import { TJobApplicationDetails, TResumeData } from "@/types/apiResponseTypes";
-import React, { useEffect, useState } from "react";
+import { TGetResumeListApiResponse, TJobApplicationDetails, TResumeData } from "@/types/apiResponseTypes";
+import React, { useState } from "react";
 import styles from "./jobApplicationPage.module.scss";
 import { FiArrowLeft } from "react-icons/fi";
 import ApplicationDetails from "@/containers/applicationDetails/applicationDetails";
@@ -35,7 +35,7 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
     setEnableUploadResume(!enableUploadResume);
   };
 
-  const handleOnUploadResumeBtnClick = (
+  const handleOnUploadResumeBtnClick = async (
     resumeName: string,
     resumePdfFile?: File | null,
     resumeText?: string
@@ -54,30 +54,25 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
     formData.append("resume_name", resumeName);
     formData.append("job_application_id", jobApplicationDetails?.id);
     setIsUploadResumeBtnLoading(true);
-    uploadResumeApi(formData, (res) => {
+    try {
+      const response: any = await uploadResumeApi(formData);
       setIsUploadResumeBtnLoading(false);
-      if (res?.response?.status === 200) {
-        setEnableUploadResume(false);
-        updateResumeList();
-        alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
-      } else {
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
-      }
-    });
+      setEnableUploadResume(false);
+      updateResumeList();
+      alertMessage(response?.response?.message, ALERT_TYPE.SUCCESS);
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
 
-  const updateResumeList = () => {
+  const updateResumeList = async () => {
     const params = {
       job_application_id: jobApplicationDetails?.id,
     };
-    getResumeListApi(params, (res) => {
-      if (res?.response?.status === 200) {
-        setResumeList(res.content);
-      }
-    });
+    const response: TGetResumeListApiResponse = await getResumeListApi(params);
+    setResumeList(response.content);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <>

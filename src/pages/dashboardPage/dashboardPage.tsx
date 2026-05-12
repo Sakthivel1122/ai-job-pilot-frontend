@@ -167,18 +167,17 @@ const DashboardPage = () => {
     setEditApplicationData(undefined);
   };
 
-  const updateJobApplicationList = (params: TGetJobApplicationParams) => {
-    getJobApplicationsApi(params, (res) => {
-      if (res?.response?.status === 200) {
-        setJobApplicationList(res?.content?.data);
-        setCurrentPage(params?.page);
-        const totalPages = Math.ceil(res?.content?.total_records / itemsPerPage);
-        setTotalPage(totalPages);
-        setIsGetApplicationApiLoading(false);
-      } else {
-        setIsGetApplicationApiLoading(false);
-      }
-    });
+  const updateJobApplicationList = async (params: TGetJobApplicationParams) => {
+    try {
+      const response : any = await getJobApplicationsApi(params);
+      setJobApplicationList(response?.content?.data);
+      setCurrentPage(params?.page);
+      const totalPages = Math.ceil(response?.content?.total_records / itemsPerPage);
+      setTotalPage(totalPages);
+      setIsGetApplicationApiLoading(false);
+    } catch (error) {
+      setIsGetApplicationApiLoading(false);
+    }
   };
 
   const createUpdateJobApplicationOnSuccess = (isEdit : boolean) => {
@@ -195,39 +194,40 @@ const DashboardPage = () => {
     setJobApplicationFormPopup(false);
   };
 
-  const deleteJobApplication = (id: string | undefined) => {
-    const params = `?id=${id}`;
-    deleteJobApplicationsApi(params, (res) => {
-      if (res?.response?.status === 200) {
-        alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
-        updateDashboardData();
-        const params: TGetJobApplicationParams = {
-          page: 1,
-          limit: itemsPerPage,
-          status: selectedDropDownOption.data,
-        };
-        if (searchText) {
-          params.search_text = searchText
-        }
-        updateJobApplicationList(params);
-      } else {
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
+  const deleteJobApplication = async (id: string | undefined) => {
+    try {
+      const params1 = `?id=${id}`;
+      const response : any = await deleteJobApplicationsApi(params1);
+      alertMessage(response?.response?.message, ALERT_TYPE.SUCCESS);
+      updateDashboardData();
+      const params: TGetJobApplicationParams = {
+        page: 1,
+        limit: itemsPerPage,
+        status: selectedDropDownOption.data,
+      };
+      if (searchText) {
+        params.search_text = searchText
       }
-    });
+      updateJobApplicationList(params);
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
 
-  const updateDashboardData = () => {
-    getDashboardDataApi((res) => {
-      if (res?.response?.status === 200) {
-        const content = res?.content;
-        setCountInfoCardData({
-          totalApplications: content?.total_application_count,
-          applied: content?.applied_count,
-          interviews: content?.interview_count,
-          offers: content?.offer_count,
-        });
-      }
-    });
+  const updateDashboardData = async () => {
+    try {
+      const response: any = await getDashboardDataApi();
+      const content = response?.content;
+      setCountInfoCardData({
+        totalApplications: content?.total_application_count,
+        applied: content?.applied_count,
+        interviews: content?.interview_count,
+        offers: content?.offer_count,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchInputKeyDown = (

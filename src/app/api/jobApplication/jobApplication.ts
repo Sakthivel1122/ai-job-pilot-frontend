@@ -1,17 +1,17 @@
 import { API_CONSTANTS, API_METHODS } from "@/constants/api-constants";
-import { fetchCall } from "../ajax";
+import { fetchCall } from "../api-client";
 import { TGetJobApplicationDetailsApiResponse } from "@/types/apiResponseTypes";
 
-export const getJobApplicationDetailsApi = (
+export const getJobApplicationDetailsApi = async (
   payload: any,
-  callback: (res: TGetJobApplicationDetailsApiResponse) => void = () => {},
-  isServerSide: boolean = false
+  isServerSide: boolean = false,
 ) => {
-  fetchCall(
-    API_CONSTANTS.GET_JOB_APPLICATION_DETAILS,
-    API_METHODS.GET,
+  const result : TGetJobApplicationDetailsApiResponse = await fetchCall({
+    url: API_CONSTANTS.GET_JOB_APPLICATION_DETAILS,
+    method: API_METHODS.GET,
     payload,
-    callback,
-    isServerSide
-  );
+    isServerSide,
+  });
+
+  return result;
 };

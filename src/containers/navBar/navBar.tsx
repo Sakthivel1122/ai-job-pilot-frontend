@@ -134,7 +134,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
     }));
   };
 
-  const handleSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const payload = {
@@ -143,10 +143,11 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
       password: signUpData.passowrd,
     };
     setIsSignUpLoading(true);
-    signUpApi(payload, async (res) => {
-      if (res?.response?.status === 200) {
-        const userData = res.content.user_data;
-        const tokenData = res.content.token;
+    try {
+      const signUpResponse: any = await signUpApi(payload);
+      if (signUpResponse?.response?.status === 200) {
+        const userData = signUpResponse.content.user_data;
+        const tokenData = signUpResponse.content.token;
         const result = await signIn("credentials", {
           redirect: false,
           accessToken: tokenData?.access_token,
@@ -157,12 +158,12 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
           role: userData?.role,
           isLoggedIn: true,
         });
-        setIsSignUpLoading(false);
 
         if (result?.ok) {
-          alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
+          alertMessage(signUpResponse?.response?.message, ALERT_TYPE.SUCCESS);
           setSignUpPopup(false);
           const session_data = await getSessionData();
+          setIsSignUpLoading(false);
           setSessionData(session_data);
           if (userData?.role === "admin") {
             router.push(ROUTES.ADMIN.DASHBOARD);
@@ -170,13 +171,15 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             router.push(ROUTES.HOME);
           }
         } else {
+          setIsSignUpLoading(false);
           alertMessage(`${result?.error}`, ALERT_TYPE.ERROR);
         }
-      } else {
-        setIsSignUpLoading(false);
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
       }
-    });
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      setIsSignUpLoading(false);
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
 
   // Login
@@ -194,7 +197,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
     }));
   };
 
-  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const payload = {
@@ -203,10 +206,12 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
     };
 
     setIsLoginLoading(true);
-    loginApi(payload, async (res) => {
-      if (res?.response?.status === 200) {
-        const userData = res.content.user_data;
-        const tokenData = res.content.token;
+
+    try {
+      const loginRes: any = await loginApi(payload);
+      if (loginRes?.response?.status === 200) {
+        const userData = loginRes.content.user_data;
+        const tokenData = loginRes.content.token;
 
         const result = await signIn("credentials", {
           redirect: false,
@@ -222,7 +227,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
         setIsLoginLoading(false);
 
         if (result?.ok) {
-          alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
+          alertMessage(loginRes?.response?.message, ALERT_TYPE.SUCCESS);
           setLoginPopup(false);
           const session_data = await getSessionData();
           setSessionData(session_data);
@@ -234,11 +239,12 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
         } else {
           alertMessage(`${result?.error}`, ALERT_TYPE.ERROR);
         }
-      } else {
-        setIsLoginLoading(false);
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
       }
-    });
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      setIsLoginLoading(false);
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
 
   const handleResetLoginForm = () => {

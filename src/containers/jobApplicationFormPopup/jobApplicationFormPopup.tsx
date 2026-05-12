@@ -86,7 +86,7 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
     jobDescription: "",
   });
 
-  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     let payload: any = {
       company: companyName,
@@ -148,14 +148,14 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
       payload.id = applicationData?._id;
     }
 
-    createUpdateJobApplicationApi(payload, (res) => {
-      if (res?.response?.status === 200) {
-        onSuccess?.(applicationData?._id ? true : false);
-        alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
-      } else {
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
-      }
-    });
+    try {
+      const response : any = await createUpdateJobApplicationApi(payload);
+      onSuccess?.(applicationData?._id ? true : false);
+      alertMessage(response?.response?.message, ALERT_TYPE.SUCCESS);
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
 
   const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {

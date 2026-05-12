@@ -1,6 +1,6 @@
 import { API_CONSTANTS, API_METHODS } from "@/constants/api-constants";
-import { fetchCall } from "../../ajax";
+import { fetchCall } from "../../api-client";
 
-export const getAdminDashboardApi = (callback: (res: any) => void = () => {}) => {
-  fetchCall(API_CONSTANTS.ADMIN.DASHBOARD, API_METHODS.GET, "", callback);
+export const getAdminDashboardApi = () => {
+  return fetchCall({ url: API_CONSTANTS.ADMIN.DASHBOARD, method: API_METHODS.GET });
 };

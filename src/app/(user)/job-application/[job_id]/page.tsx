@@ -1,6 +1,6 @@
 import { getJobApplicationDetailsApi } from "@/app/api/jobApplication/jobApplication";
 import JobApplicationPage from "@/pages/jobApplicationPage/jobApplicationPage";
-import { TJobApplicationDetails } from "@/types/apiResponseTypes";
+import { TGetJobApplicationDetailsApiResponse, TJobApplicationDetails } from "@/types/apiResponseTypes";
 import { AuthWrapper } from "@/wrappers/authWrapper";
 import React from "react";
 
@@ -14,18 +14,13 @@ const JobApplication = async ({
     id: job_id,
   };
   const getJobApplicationDetailsPromise = (payload: any): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      getJobApplicationDetailsApi(
-        payload,
-        (res) => {
-          if (res?.response?.status === 200) {
-            resolve(res.content); // return the data
-          } else {
-            reject(res); // reject on error
-          }
-        },
-        true
-      );
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response : TGetJobApplicationDetailsApiResponse = await getJobApplicationDetailsApi(payload, true);
+        resolve(response.content);
+      } catch (error) {
+        reject(error);
+      }
     });
   };
 

@@ -44,91 +44,90 @@ const AdminPage = () => {
     updateDashboardData();
   }, []);
 
-  const updateDashboardData = () => {
-    getAdminDashboardApi((res) => {
-      if (res.response.status === 200) {
-        setCountData((prevState) => ({
-          ...prevState,
-          totalUsers: res.content.total_user_count,
-          totalApplications: res.content.job_application_count,
-          resumesAnalyzed: res.content.resumes_analyzed_count,
-        }));
-        const statusCountData = res.content.job_application_status_counts;
-        const totalJobApplications = res.content.job_application_count;
-        let statusCountList: TapplicationStatusCountData[] = [];
-        if (statusCountData && "applied" && statusCountData) {
-          statusCountList.push({
-            id: 1,
-            titleText: "Applied",
-            color: "#2563EB",
-            count: statusCountData.applied,
-            percentage: (statusCountData.applied / totalJobApplications) * 100,
-          });
-        }
-        if (statusCountData && "interview_scheduled" in statusCountData) {
-          statusCountList.push({
-            id: 2,
-            titleText: "Interview Scheduled",
-            color: "#F59E0B",
-            count: statusCountData.interview_scheduled,
-            percentage:
-              (statusCountData.interview_scheduled / totalJobApplications) *
-              100,
-          });
-        }
-        if (statusCountData && "interviewing" in statusCountData) {
-          statusCountList.push({
-            id: 2,
-            titleText: "Interviewing",
-            color: "#F59E0B",
-            count: statusCountData.interviewing,
-            percentage:
-              (statusCountData.interviewing / totalJobApplications) * 100,
-          });
-        }
-        if (statusCountData && "selected" in statusCountData) {
-          statusCountList.push({
-            id: 3,
-            titleText: "Selected",
-            color: "#10B981",
-            count: statusCountData.selected,
-            percentage: (statusCountData.selected / totalJobApplications) * 100,
-          });
-        }
-        if (statusCountData && "rejected" in statusCountData) {
-          statusCountList.push({
-            id: 4,
-            titleText: "Rejected",
-            color: "#EF4444",
-            count: statusCountData.rejected,
-            percentage: (statusCountData.rejected / totalJobApplications) * 100,
-          });
-        }
-        if (statusCountData && "offer_received" in statusCountData) {
-          statusCountList.push({
-            id: 5,
-            titleText: "Offer Received",
-            color: "#8B5CF6",
-            count: statusCountData.offer_received,
-            percentage:
-              (statusCountData.offer_received / totalJobApplications) * 100,
-          });
-        }
-        if (statusCountData && "withdrawn" in statusCountData) {
-          statusCountList.push({
-            id: 6,
-            titleText: "Withdrawn",
-            color: "#6B7280",
-            count: statusCountData.withdrawn,
-            percentage:
-              (statusCountData.withdrawn / totalJobApplications) * 100,
-          });
-        }
-        setApplicationStatusCountList(statusCountList);
-      } else {
-        alertMessage(ALERT_TYPE.ERROR, "Dashboard API Failed!!!");
+  const updateDashboardData = async () => {
+    try {
+      const response: any  = await getAdminDashboardApi();
+      setCountData((prevState) => ({
+        ...prevState,
+        totalUsers: response.content.total_user_count,
+        totalApplications: response.content.job_application_count,
+        resumesAnalyzed: response.content.resumes_analyzed_count,
+      }));
+      const statusCountData = response.content.job_application_status_counts;
+      const totalJobApplications = response.content.job_application_count;
+      let statusCountList: TapplicationStatusCountData[] = [];
+      if (statusCountData && "applied" && statusCountData) {
+        statusCountList.push({
+          id: 1,
+          titleText: "Applied",
+          color: "#2563EB",
+          count: statusCountData.applied,
+          percentage: (statusCountData.applied / totalJobApplications) * 100,
+        });
       }
-    });
+      if (statusCountData && "interview_scheduled" in statusCountData) {
+        statusCountList.push({
+          id: 2,
+          titleText: "Interview Scheduled",
+          color: "#F59E0B",
+          count: statusCountData.interview_scheduled,
+          percentage:
+            (statusCountData.interview_scheduled / totalJobApplications) *
+            100,
+        });
+      }
+      if (statusCountData && "interviewing" in statusCountData) {
+        statusCountList.push({
+          id: 2,
+          titleText: "Interviewing",
+          color: "#F59E0B",
+          count: statusCountData.interviewing,
+          percentage:
+            (statusCountData.interviewing / totalJobApplications) * 100,
+        });
+      }
+      if (statusCountData && "selected" in statusCountData) {
+        statusCountList.push({
+          id: 3,
+          titleText: "Selected",
+          color: "#10B981",
+          count: statusCountData.selected,
+          percentage: (statusCountData.selected / totalJobApplications) * 100,
+        });
+      }
+      if (statusCountData && "rejected" in statusCountData) {
+        statusCountList.push({
+          id: 4,
+          titleText: "Rejected",
+          color: "#EF4444",
+          count: statusCountData.rejected,
+          percentage: (statusCountData.rejected / totalJobApplications) * 100,
+        });
+      }
+      if (statusCountData && "offer_received" in statusCountData) {
+        statusCountList.push({
+          id: 5,
+          titleText: "Offer Received",
+          color: "#8B5CF6",
+          count: statusCountData.offer_received,
+          percentage:
+            (statusCountData.offer_received / totalJobApplications) * 100,
+        });
+      }
+      if (statusCountData && "withdrawn" in statusCountData) {
+        statusCountList.push({
+          id: 6,
+          titleText: "Withdrawn",
+          color: "#6B7280",
+          count: statusCountData.withdrawn,
+          percentage:
+            (statusCountData.withdrawn / totalJobApplications) * 100,
+        });
+      }
+      setApplicationStatusCountList(statusCountList);
+    } catch (error) {
+       alertMessage(ALERT_TYPE.ERROR, "Dashboard API Failed!!!");
+    }
   };
 
   useEffect(() => {

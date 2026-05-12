@@ -67,26 +67,27 @@ const ResumeAnalyzerPage = () => {
       formData.append("job_description", jobDescription);
     }
     setIsUploadResumeBtnLoading(true);
-    getResumeAnalysisApi(formData, (res) => {
+
+    try {
+      const response: any = getResumeAnalysisApi(formData);
       setIsUploadResumeBtnLoading(false);
-      if (res.response.status === 200) {
-        const content = res?.content;
-        if (content) {
-          setResumeAnalysisData((prevState) => ({
-            ...prevState,
-            ai_feedback: content?.feedback,
-            ai_score: content?.score,
-            ai_summary: content?.summary,
-          }));
-        }
-        alertMessage(res?.response?.message, ALERT_TYPE.SUCCESS);
-        setTimeout(() => {
-          scrollToTargetWithOffset();
-        }, 500);
-      } else {
-        alertMessage(res?.response?.message, ALERT_TYPE.ERROR);
+      const content = response?.content;
+      if (content) {
+        setResumeAnalysisData((prevState) => ({
+          ...prevState,
+          ai_feedback: content?.feedback,
+          ai_score: content?.score,
+          ai_summary: content?.summary,
+        }));
       }
-    });
+      alertMessage(response?.response?.message, ALERT_TYPE.SUCCESS);
+      setTimeout(() => {
+        scrollToTargetWithOffset();
+      }, 500);
+    } catch (error : any) {
+      const message = error.response.data.response.message;
+      alertMessage(message, ALERT_TYPE.ERROR);
+    }
   };
   return (
     <div className={styles.ResumeAnalyzerPage}>

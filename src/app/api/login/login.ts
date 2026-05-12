@@ -1,16 +1,18 @@
 import { API_CONSTANTS, API_METHODS } from "@/constants/api-constants";
-import { fetchCall } from "../ajax";
+import { fetchCall } from "../api-client";
 
-export const signUpApi = (
-  payload: any,
-  callback: (res: any) => void = () => {}
-) => {
-  fetchCall(API_CONSTANTS.SIGN_UP, API_METHODS.POST, payload, callback);
+export const signUpApi = (payload: any) => {
+  return fetchCall({
+    url: API_CONSTANTS.SIGN_UP,
+    method: API_METHODS.POST,
+    payload,
+  });
 };
 
-export const loginApi = (
-  payload: any,
-  callback: (res: any) => void = () => {}
-) => {
-  fetchCall(API_CONSTANTS.LOGIN, API_METHODS.POST, payload, callback);
+export const loginApi = (payload: any) => {
+  return fetchCall({
+    url: API_CONSTANTS.LOGIN,
+    method: API_METHODS.POST,
+    payload,
+  });
 };
