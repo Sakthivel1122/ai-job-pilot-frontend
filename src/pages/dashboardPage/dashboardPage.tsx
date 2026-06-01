@@ -354,6 +354,7 @@ const DashboardPage = () => {
             <>
             {jobApplicationList.map((data, index) => (
               <ApplicationInfoCard
+                indexNo={index}
                 key={data?._id || index}
                 jobTitle={data?.role}
                 company={data?.company}

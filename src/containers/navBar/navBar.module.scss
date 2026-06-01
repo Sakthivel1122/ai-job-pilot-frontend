@@ -9,6 +9,11 @@
   z-index: 10;
   background-color: white;
 
+  @include dark-mode {
+    background-color: $dark-bg-color;
+    border-bottom-color: grey;
+  }
+
   &_logo {
     @include para1;
     color: black;
@@ -69,14 +74,16 @@
     border-radius: 0.4rem;
     padding: 0.6rem;
 
-    &.active, &:hover {
+    &.active,
+    &:hover {
       background-color: rgba(0, 0, 0, 0.1);
+      @include dark-mode {
+        background-color: $dark-hover-color;
+      }
     }
 
     &_wrapper {
       position: relative;
     }
   }
-
-
 }

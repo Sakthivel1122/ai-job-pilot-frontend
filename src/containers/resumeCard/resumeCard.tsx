@@ -30,7 +30,7 @@ const ResumeCard: React.FC<IResumeCardProps> = ({
         {showResumeName && (
           <div className={styles.ResumeCard_top_resume_name_wrapper}>
             <p className={styles.ResumeCard_top_resume_name}>{data?.name}</p>
-            <StatusTag text={`${data?.ai_score * 10}% Match`} />
+            <StatusTag text={`${data?.ai_score * 10}% Match`} type="selected"/>
           </div>
         )}
         {showUploadTime && (

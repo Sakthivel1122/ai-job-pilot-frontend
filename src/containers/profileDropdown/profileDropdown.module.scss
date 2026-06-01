@@ -1,4 +1,7 @@
 @import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+$title-text-color: #b2b2b2;
 
 .ProfileDropdown {
   position: absolute;
@@ -9,18 +12,53 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 0.4rem;
 
-  &_section_wrapper {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+  @include dark-mode {
+    background-color: $dark-grey;
   }
 
+  &_section {
+    &_wrapper {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    &_title {
+      @include para2;
+      color: $title-text-color !important;
+      margin-left: 0.8rem;
+    }
+
+    &_item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include para2;
+      font-size: 1.4rem;
+      padding: 0.8rem 0.8rem;
+      cursor: pointer;
+      border-radius: 0.6rem;
+
+      &.active {
+        background-color: rgb(242, 242, 242);
+        @include dark-mode {
+          background-color: rgb(75, 75, 75);
+        }
+      }
+      &:hover {
+        background-color: $light-hover-color;
+        @include dark-mode {
+          background-color: $dark-hover-color;
+        }
+      }
+    }
+  }
   &_name {
     @include para2;
     font-size: 1.4rem;
     margin-left: 0.8rem;
-    margin-top: 0.8rem;
+    margin-top: 1rem;
   }
 
   &_email {
@@ -33,6 +71,10 @@
   &_line {
     width: 100%;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
+
+    @include dark-mode {
+      border-top-color: rgb(66, 66, 66);
+    }
   }
 
   &_logout_btn {

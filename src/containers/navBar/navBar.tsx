@@ -19,6 +19,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ProfileDropdown from "../profileDropdown/profileDropdown";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import ThemeToggleBtn from "@/components/themeToggleBtn/themeToggleBtn";
 
 interface INavBarProps {
   initialSession: any;
@@ -320,6 +321,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
               </div>
             ) : (
               <div className={styles.NavBar_signin_btn_wrapper}>
+                <ThemeToggleBtn />
                 <Button
                   variant="transparent"
                   content="Sign In"

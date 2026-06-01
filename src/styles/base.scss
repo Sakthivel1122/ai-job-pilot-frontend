@@ -1,5 +1,13 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+
 html {
   font-size: 10px; /* Ensures 1rem equals 16px */
+}
+
+.dark body {
+  // background-color: $dark-bg-color;
+  background-color: $dark-bg-color;
 }
 
 // @media (-webkit-min-device-pixel-ratio: 1.25) and (-webkit-max-device-pixel-ratio: 1.55172413793103),

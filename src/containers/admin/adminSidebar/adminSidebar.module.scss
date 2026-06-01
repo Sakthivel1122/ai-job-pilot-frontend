@@ -9,6 +9,11 @@
   flex-direction: column;
   justify-content: space-between;
 
+  @include dark-mode {
+    background-color: $dark-bg-color;
+    border-right-color: #505050;
+  }
+
   &_header {
     display: flex;
     align-items: center;
@@ -16,6 +21,10 @@
     height: 7rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-left: 1.2rem;
+
+    @include dark-mode {
+      border-bottom-color: #505050;
+    }
   }
   &_logo {
     font-size: 2rem;
@@ -66,12 +75,19 @@
     text-decoration: none;
     color: black;
 
+    @include dark-mode {
+      color: white;
+    }
+
     &:hover {
       background-color: rgb(225, 225, 225);
+      @include dark-mode {
+        background-color: $dark-hover-color;
+      }
     }
 
     &.active {
-      background-color: $primary-color;
+      background-color: $primary-color !important;
       color: white;
     }
 

@@ -7,6 +7,7 @@ import axios, {
 
 import { getSession, signIn } from "next-auth/react";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 import { authOptions } from "@/lib/auth";
 
@@ -118,7 +119,12 @@ axiosInstance.interceptors.response.use(
         );
 
         if (!refreshToken) {
-          handleLogout(ROUTES.HOME);
+          if (originalRequest.isServerSide) {
+            handleLogout();
+            redirect(ROUTES.HOME);
+          } else {
+            handleLogout(ROUTES.HOME);
+          }
           return Promise.reject(error);
         }
 
@@ -147,7 +153,12 @@ axiosInstance.interceptors.response.use(
         });
 
         if (!result?.ok) {
-          handleLogout(ROUTES.HOME);
+          if (originalRequest.isServerSide) {
+            handleLogout();
+            redirect(ROUTES.HOME);
+          } else {
+            handleLogout(ROUTES.HOME);
+          }
           return Promise.reject(error);
         }
 
@@ -163,7 +174,12 @@ axiosInstance.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
 
-        handleLogout(ROUTES.HOME);
+        if (originalRequest.isServerSide) {
+          handleLogout();
+          redirect(ROUTES.HOME);
+        } else {
+          handleLogout(ROUTES.HOME);
+        }
 
         return Promise.reject(refreshError);
       } finally {

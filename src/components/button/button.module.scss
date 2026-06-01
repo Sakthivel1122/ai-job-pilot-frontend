@@ -7,7 +7,7 @@
   border-radius: 0.6rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  background-color: $primary-btn-color;
+  background-color: $primary-color;
 
   &_text {
     @include para1;
@@ -18,7 +18,7 @@
   }
 
   &:hover {
-    background-color: lighten($primary-btn-color, 17%);
+    background-color: darken($primary-color, 15%);
   }
 
   &:disabled {
@@ -28,15 +28,15 @@
 }
 
 .secondary_btn {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid $primary-color;
   background-color: transparent;
 
   &_text {
-    color: black;
+    color: $primary-color;
   }
 
   @include dark-mode {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 
     &_text {
       color: white;

@@ -60,8 +60,10 @@
     }
 
     &_input_box_wrapper {
-      background-color: $light-grey;
-      border-color: $light-grey !important;
+      @include light-mode {
+        background-color: $light-grey;
+        border-color: $light-grey !important;
+      }
     }
   }
 
@@ -69,6 +71,9 @@
     &_start_icon {
       font-size: 1.8rem;
       margin-right: 1.2rem;
+      @include dark-mode {
+        color: white;
+      }
     }
     &_end_icon {
       font-size: 1.8rem;

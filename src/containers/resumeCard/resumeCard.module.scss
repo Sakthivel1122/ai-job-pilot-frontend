@@ -7,6 +7,10 @@
   padding: 2rem;
   border-radius: 0.8rem;
 
+  @include dark-mode {
+    border-color: $dark-border-color;
+  }
+
   &_top {
     display: flex;
     flex-direction: column;
@@ -55,6 +59,10 @@
       height: 0.8rem;
       background-color: rgba(0, 0, 0, 0.08);
       border-radius: 0.5rem;
+
+      @include dark-mode {
+        background-color: rgb(179, 179, 179);
+      }
     }
 
     &_ai_score_line {
@@ -63,7 +71,7 @@
       left: 0;
       top: 0;
       height: 0.8rem;
-      background-color: $primary-btn-color;
+      background-color: $primary-color;
       border-radius: 0.5rem;
     }
 
@@ -84,6 +92,13 @@
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.04);
+        @include dark-mode {
+          background-color: $dark-hover-color;
+        }
+      }
+
+      @include dark-mode {
+        background-color: rgb(68, 68, 68);
       }
 
       &_icon {
@@ -108,6 +123,10 @@
     padding: 1.6rem;
     border-radius: 0.6rem;
     margin-top: 2rem;
+
+    @include dark-mode {
+      background-color: $dark-grey;
+    }
 
     &_title {
       @include para1;

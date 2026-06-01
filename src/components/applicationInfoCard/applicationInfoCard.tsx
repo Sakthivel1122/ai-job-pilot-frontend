@@ -8,6 +8,7 @@ import { TDropdownOptionData } from "@/types/dropdown";
 import { IoIosMore } from "react-icons/io";
 import { TJobApplicationStatus } from "@/types/commonTypes";
 import { getApplicationStatusText } from "@/utils/sharedFunctions";
+import { useTheme } from "next-themes";
 
 interface IApplicationInfoCardProps {
   jobTitle: string;
@@ -17,6 +18,7 @@ interface IApplicationInfoCardProps {
   salaryMax?: string | number | null;
   notes?: string | null;
   applicationStatus: TJobApplicationStatus;
+  indexNo?: number;
   onEditClick?: () => void;
   onDeleteClick?: () => void;
   onClick?: () => void;
@@ -43,6 +45,7 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
   notes,
   salaryMin,
   salaryMax,
+  indexNo,
   onEditClick,
   onDeleteClick,
   onClick,
@@ -51,7 +54,10 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
     return getApplicationStatusText(applicationStatus);
   }, [applicationStatus]);
   return (
-    <div className={styles.ApplicationInfoCard} onClick={onClick}>
+    <div
+      className={`${styles.ApplicationInfoCard} ${(indexNo !== undefined && (indexNo % 2) == 0) ? styles.odd : ""}`}
+      onClick={onClick}
+    >
       <div className={styles.ApplicationInfoCard_content}>
         <div className={styles.ApplicationInfoCard_content_left}>
           <p className={styles.ApplicationInfoCard_title}>{jobTitle}</p>
@@ -97,24 +103,24 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
               e.stopPropagation();
             }}
           >
-          <Dropdown
-            buttonLabel={""}
-            buttonClass={styles.ApplicationInfoCard_more_btn}
-            startIcon={
-              <IoIosMore
-                className={styles.DashboardPage_dropdown_filter_start_icon}
-              />
-            }
-            endIcon={""}
-            options={statusDropdownFilterOptions}
-            onSelect={(value) => {
-              if (value?.data === "edit") {
-                onEditClick?.();
-              } else if (value?.data === "delete") {
-                onDeleteClick?.();
+            <Dropdown
+              buttonLabel={""}
+              buttonClass={styles.ApplicationInfoCard_more_btn}
+              startIcon={
+                <IoIosMore
+                  className={styles.DashboardPage_dropdown_filter_start_icon}
+                />
               }
-            }}
-          />
+              endIcon={""}
+              options={statusDropdownFilterOptions}
+              onSelect={(value) => {
+                if (value?.data === "edit") {
+                  onEditClick?.();
+                } else if (value?.data === "delete") {
+                  onDeleteClick?.();
+                }
+              }}
+            />
           </div>
         </div>
       </div>

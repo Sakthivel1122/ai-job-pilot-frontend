@@ -17,17 +17,31 @@
   font-family: $primary-font !important;
   white-space: nowrap !important;
 
+  background-color: $light-grey !important;
+  @include dark-mode {
+    background-color: #1f1f1f !important;
+    color: white !important;
+    border: 1px solid $dark-border-color !important;
+  }
+
   &:hover {
-    background-color: darken($light-grey, 5) !important; // hover color
+    background-color: darken($light-grey, 5) !important;
+    @include dark-mode {
+      background-color: #323232 !important;
+    }
   }
 
   &:active {
-    background-color: darken($light-grey, 5) !important; // click effect color
+    background-color: darken($light-grey, 5) !important;
   }
 
   &:focus {
     outline: 2px solid rgb(0, 0, 0, 1);
     outline-offset: 2px;
+
+    @include dark-mode {
+      outline: 2px solid rgba(255, 255, 255, 0.8);
+    }
   }
 }
 
@@ -46,24 +60,35 @@
 }
 
 .dropdownMenu {
-  //   margin-top: 6px;
 }
+
 .dropdownPaper {
-  //   border: 1px solid red !important;
-  //   width: 20rem;
 }
 
 .dropdownItem {
   display: flex;
   align-items: center;
   font-size: 1.4rem !important;
+  color: black !important;
+
+  @include dark-mode {
+    color: white !important;
+  }
 }
 
 .itemIcon {
   min-width: 32px;
+
+  @include dark-mode {
+    color: white !important;
+  }
 }
 
 .end_icon {
   font-size: 1.8rem;
   margin-left: 0.8rem;
+
+  @include dark-mode {
+    color: white;
+  }
 }

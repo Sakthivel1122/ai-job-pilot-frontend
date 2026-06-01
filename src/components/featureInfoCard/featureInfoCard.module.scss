@@ -17,6 +17,10 @@
     transition: box-shadow 0.2s ease-in-out 0.1s;
   }
 
+  @include dark-mode {
+    background-color: $dark-grey;
+  }
+
   &_icon_wrapper {
     min-height: 5rem;
     min-width: 5rem;
@@ -24,6 +28,10 @@
     width: fit-content;
     border-radius: 0.8rem;
     @include flex-center;
+
+    @include dark-mode {
+      background-color: transparent;
+    }
   }
 
   &_icon {
@@ -34,6 +42,8 @@
     @include para2;
     font-size: 2rem;
     font-weight: 600;
+    text-align: center;
+    line-height: 1.5;
   }
 
   &_description {

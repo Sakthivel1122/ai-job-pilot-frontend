@@ -184,7 +184,7 @@ const AdminPage = () => {
           </div>
         </AdminCardWrapper>
         <AdminCardWrapper
-          title="Application Status Breakdown"
+          title="Recent Signups"
           customClass={styles.AdminPage_application_status_card}
         >
           <></>

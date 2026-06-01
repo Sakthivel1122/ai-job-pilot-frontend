@@ -18,6 +18,11 @@
     0 10px 15px 0px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.2);
   }
 
+  @include dark-mode {
+    background-color: $dark-grey;
+    border: 1px solid $dark-border-color;
+  }
+
   &_icon_wrapper {
     height: 4rem;
     width: 4rem;
@@ -58,6 +63,14 @@
 
   &.applied {
     background-image: linear-gradient(to bottom right, #eff6ff, #dbeafe);
+
+    @include dark-mode {
+      background-image: none;
+      // background-color: rgba(60, 131, 246, 0.1);
+      // border-color: rgba(60, 131, 246, 0.5);
+      background-color: rgba(60, 131, 246, 0.1);
+      border-color: rgba(60, 131, 246, 0.5);
+    }
     .CountInfoCard {
       &_icon_wrapper {
         background-color: #3b82f633;
@@ -78,12 +91,23 @@
       &_description {
         color: #2563EB;
       }
+
+
+      @include dark-mode {
+        &_title, &_count, &_description {
+          color: #7aadff;
+        }
+      }
     }
   }
 
   &.interviews {
     background-image: linear-gradient(to bottom right, #fefce8, #fef9c3);
-
+    @include dark-mode {
+      background-image: none;
+      background-color: rgba(248, 250, 252, 0.1);
+      border-color: rgba(248, 250, 252, 0.2);
+    }
     .CountInfoCard {
       &_icon_wrapper {
         background-color: #eab30833;
@@ -104,11 +128,22 @@
       &_description {
         color: #CA8A04;
       }
+
+      @include dark-mode {
+        &_title, &_count, &_description {
+          color: #E7B008;
+        }
+      }
     }
   }
 
   &.offers {
     background-image: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+    @include dark-mode {
+      background-image: none;
+      background-color: rgba(33, 196, 93, 0.1);
+      border-color: rgba(33, 196, 93, 0.4);
+    }
     .CountInfoCard {
       &_icon_wrapper {
         background-color: #22c55e33;
@@ -128,6 +163,11 @@
     
       &_description {
         color: #16A34A;
+      }
+      @include dark-mode {
+        &_title, &_count, &_description {
+          color: #21C45D;
+        }
       }
     }
   }
@@ -155,6 +195,7 @@
 
       &_title {
         color: black;
+
       }
     
       &_count {
@@ -163,6 +204,12 @@
     
       &_description {
         color: $text-color-light;
+      }
+
+      @include dark-mode {
+        &_title, &_description {
+          color: white;
+        }   
       }
     }
   }

@@ -30,7 +30,7 @@ const LandingPage = () => {
             🚀 AI-Powered Job Search Assistant
           </p>
           <h1 className={styles.LandingPage_big_title_text}>
-            {/* Heading Text to display here <br /> is a long text */}
+            {/* Heading Text to display here is a long text */}
             Land Your Dream Job with AI-Powered Insights
           </h1>
           <p className={styles.LandingPage_description_text}>

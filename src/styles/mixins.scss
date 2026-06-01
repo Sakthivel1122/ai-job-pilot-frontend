@@ -56,6 +56,12 @@
   align-items: center;
 }
 
+@mixin light-mode {
+  :global(html.light) & {
+    @content;
+  }
+}
+
 @mixin dark-mode {
   :global(html.dark) & {
     @content;

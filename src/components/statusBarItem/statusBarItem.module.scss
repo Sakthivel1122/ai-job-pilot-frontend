@@ -29,6 +29,10 @@
     border-radius: 0.5rem;
     position: relative;
 
+    @include dark-mode {
+      background-color: rgb(108, 108, 108);
+    }
+
     &_active {
       position: absolute;
       left: 0;

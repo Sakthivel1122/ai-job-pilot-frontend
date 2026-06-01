@@ -1,0 +1,34 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.ThemeToggleBtn {
+  cursor: pointer;
+  @include flex-center;
+  padding-top: 0.2rem;
+  border-radius: 50%;
+  padding: 1rem;
+
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  @include dark-mode {
+    background-color: white;
+  }
+
+  &:hover {
+    background-color: rgb(241, 241, 241);
+    @include dark-mode {
+      color: black;
+      background-color: rgb(205, 205, 205);
+    }
+  }
+
+  &_icon {
+    font-size: 2rem !important;
+    font-weight: 100;
+    @include dark-mode {
+      color: black;
+    }
+  }
+}

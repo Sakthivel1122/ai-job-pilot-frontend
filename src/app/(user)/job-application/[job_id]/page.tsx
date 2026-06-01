@@ -1,7 +1,9 @@
 import { getJobApplicationDetailsApi } from "@/app/api/jobApplication/jobApplication";
+import { ROUTES } from "@/constants/app-constants";
 import JobApplicationPage from "@/pages/jobApplicationPage/jobApplicationPage";
 import { TGetJobApplicationDetailsApiResponse, TJobApplicationDetails } from "@/types/apiResponseTypes";
 import { AuthWrapper } from "@/wrappers/authWrapper";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const JobApplication = async ({
@@ -24,15 +26,19 @@ const JobApplication = async ({
     });
   };
 
-  const jobApplicationDetails: TJobApplicationDetails =
-    await getJobApplicationDetailsPromise(payload);
-  return (
-    <>
-    <AuthWrapper pathname="user_pages">
-      <JobApplicationPage jobApplicationDetails={jobApplicationDetails} />
-    </AuthWrapper>
-    </>
-  );
+  try {
+    const jobApplicationDetails: TJobApplicationDetails =
+      await getJobApplicationDetailsPromise(payload);
+      return (
+        <>
+        <AuthWrapper pathname="user_pages">
+          <JobApplicationPage jobApplicationDetails={jobApplicationDetails} />
+        </AuthWrapper>
+        </>
+      );
+  } catch (error) {
+    redirect(ROUTES.HOME);
+  }
 };
 
 export default JobApplication;

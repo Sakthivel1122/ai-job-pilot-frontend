@@ -15,6 +15,11 @@
     transition: box-shadow 0.2s ease-in-out 0.1s;
   }
 
+  @include dark-mode {
+    // background-color: $dark-grey;
+    border-color: rgb(74, 74, 74);
+  }
+
   &_document_icon {
     &_wrapper {
       background-color: $light-grey;
@@ -23,6 +28,10 @@
       min-height: 4rem;
       min-width: 4rem;
       @include flex-center;
+
+      @include dark-mode {
+        background-color: transparent;
+      }
     }
     font-size: 2.2rem;
   }

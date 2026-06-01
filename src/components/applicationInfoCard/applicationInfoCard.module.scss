@@ -19,6 +19,13 @@
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) , rgba(0, 0, 0, 0.01));
   }
 
+  &.odd { 
+    @include dark-mode {
+      background-color: $dark-grey;
+      // border: 1px solid $dark-border-color;
+    }
+  }
+
   &_title {
     @include heading1;
     font-size: 2rem;

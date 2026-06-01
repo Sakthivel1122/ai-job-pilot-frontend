@@ -41,7 +41,11 @@
       transition: background-color 0.25s ease;
 
       &:hover {
-        background-color: $hover-color-light;
+        background-color: $light-hover-color;
+
+        @include dark-mode {
+          background-color: $dark-hover-color;
+        }
       }
     }
   }

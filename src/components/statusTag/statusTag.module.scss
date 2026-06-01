@@ -9,9 +9,22 @@
   border-radius: 1.2rem;
   white-space: nowrap;
 
+  @include dark-mode {
+    color: black;
+    font-weight: normal;
+  }
+
   &_applied {
     color: #1e40af;
     background-color: #dbeafe;
+
+    @include dark-mode {
+      // color: #7aadff;
+      // background-color: rgba(30, 64, 175, 0.3);
+      // border: 1px solid rgba(30, 64, 175, 1);
+      // background-color: rgba(60, 131, 246, 0.1);
+      // border-color: rgba(60, 131, 246, 0.5);
+    }
   }
 
   &_interview_scheduled {
@@ -41,9 +54,15 @@
   &_black {
     color: white;
     background-color: black;
+    @include dark-mode {
+      color: white;
+    }
   }
 
   &_default {
     border: 1px solid rgb(222, 222, 222);
+    @include dark-mode {
+      color: white;
+    }
   }
 }

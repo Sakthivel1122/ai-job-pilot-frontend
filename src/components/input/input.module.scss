@@ -14,12 +14,16 @@
     border-radius: 0.6rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
+    @include dark-mode {
+      border-color: $dark-border-color;
+    }
+
     &_with_icon {
       padding: 1rem;
     }
 
     &:focus-within {
-      outline: 2px solid rgba(0, 0, 0, 1);
+      outline: 2px solid $primary-color;
       outline-offset: 2px;
     }
   }
@@ -43,6 +47,12 @@
 
     &_without_icon {
       padding: 1rem;
+    }
+
+    &::placeholder {
+      @include dark-mode {
+        color: rgb(182, 182, 182);
+      }
     }
   }
 

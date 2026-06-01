@@ -11,6 +11,10 @@
   align-items: center;
   padding: 1.2rem;
 
+  @include dark-mode {
+    border-bottom-color: #505050;
+  }
+
   &_text {
     @include para2;
     font-size: 2rem;
