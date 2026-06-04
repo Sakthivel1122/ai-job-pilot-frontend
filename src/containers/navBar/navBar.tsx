@@ -20,6 +20,7 @@ import { usePathname } from "next/navigation";
 import ProfileDropdown from "../profileDropdown/profileDropdown";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import ThemeToggleBtn from "@/components/themeToggleBtn/themeToggleBtn";
+import { useWindowWidth } from "@/hooks/useWindowWidth";
 
 interface INavBarProps {
   initialSession: any;
@@ -109,6 +110,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
 
   const router = useRouter();
   const pathname = usePathname();
+  const windowWidth = useWindowWidth();
 
   // SingUp
   const handeOnGetStartedClick = () => {
@@ -352,7 +354,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onInputFieldChange={handleSignUpFieldOnChange}
             onSubmit={handleSignUpSubmit}
             resetForm={handleResetSignUpForm}
-            showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
+            showInFullScreen={!!(windowWidth && windowWidth <= BREAK_POINTS.SMALL)}
             submitBtnText="Create Account"
           />
 
@@ -368,7 +370,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
             onInputFieldChange={handleLoginFieldOnChange}
             onSubmit={handleLoginSubmit}
             resetForm={handleResetLoginForm}
-            showInFullScreen={innerWidth <= BREAK_POINTS.SMALL}
+            showInFullScreen={!!(windowWidth && windowWidth <= BREAK_POINTS.SMALL)}
             submitBtnText="Sign In"
           />
         </>

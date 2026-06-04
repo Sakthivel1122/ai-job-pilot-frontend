@@ -7,20 +7,11 @@ import SimpleApplicationInfoCard from "@/components/simpleApplicationInfoCard/si
 import { applicationCardList, featureCardList } from "@/constants/landingPage";
 import FeatureInfoCard from "@/components/featureInfoCard/featureInfoCard";
 import { BREAK_POINTS } from "@/constants/app-constants";
+import { useWindowWidth } from "@/hooks/useWindowWidth";
 
 const LandingPage = () => {
-  const [innerWidth, setInnerWidth] = useState<number>();
-
-  useEffect(() => {
-    setInnerWidth(window.innerWidth);
-    const handleUpdateWidth = () => {
-      setInnerWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleUpdateWidth);
-    return () => {
-      window.removeEventListener("resize", handleUpdateWidth);
-    };
-  }, []);
+  
+  const windowWidth = useWindowWidth();
 
   return (
     <>
@@ -50,7 +41,7 @@ const LandingPage = () => {
             </p>
             <div className={styles.LandingPage_hovering_card_tag_wrapper}>
               <StatusTag text="12 Applied" type="grey" />
-              {(innerWidth && innerWidth > BREAK_POINTS.EXTRA_SMALL) &&
+              {(windowWidth && windowWidth > BREAK_POINTS.EXTRA_SMALL) &&
               <StatusTag text="3 Interviews" type="default" />}
               <StatusTag text="2 Offers" type="selected" />
             </div>

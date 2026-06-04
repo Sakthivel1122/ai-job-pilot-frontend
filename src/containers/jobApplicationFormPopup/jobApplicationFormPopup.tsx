@@ -10,6 +10,8 @@ import Button from "@/components/button/button";
 import { createUpdateJobApplicationApi } from "@/app/api/dashboard/dashboard";
 import { ALERT_TYPE, alertMessage } from "@/utils/tosterAlert";
 import { TJobApplicationData } from "@/types/apiResponseTypes";
+import { useWindowWidth } from "@/hooks/useWindowWidth";
+import { BREAK_POINTS } from "@/constants/app-constants";
 
 const applicationStatusOptionList: TDropdownOptionData[] = [
   {
@@ -85,6 +87,8 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
     applicationStatus: "",
     jobDescription: "",
   });
+
+  const windowWidth = useWindowWidth();
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -210,6 +214,7 @@ const JobApplicationFormPopup: React.FC<IJobApplicationFormPopupProps> = ({
       onClose={onClose}
       customClass={styles.JobApplicationFormPopup}
       noOutsideClickClose={true}
+      showInFullScreen={!!(windowWidth && windowWidth <= BREAK_POINTS.MEDIUM)}
     >
       {/* <p className={styles.JobApplicationFormPopup_title}>
         Add New Job Application

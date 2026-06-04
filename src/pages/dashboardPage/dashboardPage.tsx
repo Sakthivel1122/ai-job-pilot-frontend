@@ -310,6 +310,7 @@ const DashboardPage = () => {
           <Button
             content="+ Add New Application"
             onClick={handleAddJobApplicationClick}
+            className={styles.DashboardPage_header_add_new_application_btn}
           />
         </div>
 

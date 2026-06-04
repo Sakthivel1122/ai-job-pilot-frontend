@@ -142,3 +142,30 @@
     }
   }
 }
+
+@include respond-to("lg") {
+  .DashboardPage {
+    &_count_info_card_wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+
+@include respond-to("sm") {
+  .DashboardPage {
+    &_count_info_card_wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    &_header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.6rem;
+
+      &_add_new_application_btn {
+        width: 100%;
+      }
+    }
+  }
+}
