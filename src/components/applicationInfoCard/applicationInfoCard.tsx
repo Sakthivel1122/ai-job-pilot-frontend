@@ -8,8 +8,6 @@ import { TDropdownOptionData } from "@/types/dropdown";
 import { IoIosMore } from "react-icons/io";
 import { TJobApplicationStatus } from "@/types/commonTypes";
 import { getApplicationStatusText } from "@/utils/sharedFunctions";
-import { useTheme } from "next-themes";
-
 interface IApplicationInfoCardProps {
   jobTitle: string;
   company: string;
@@ -107,9 +105,7 @@ const ApplicationInfoCard: React.FC<IApplicationInfoCardProps> = ({
               buttonLabel={""}
               buttonClass={styles.ApplicationInfoCard_more_btn}
               startIcon={
-                <IoIosMore
-                  className={styles.DashboardPage_dropdown_filter_start_icon}
-                />
+                <IoIosMore className={styles.ApplicationInfoCard_more_btn_icon} />
               }
               endIcon={""}
               options={statusDropdownFilterOptions}

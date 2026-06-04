@@ -115,6 +115,7 @@ const JobApplicationPage: React.FC<IJobApplicationPageProps> = ({
             Resume Management
           </h2>
           <Button
+            className={styles.JobApplicationPage_resume_management_upload_btn}
             textCustomClass={
               styles.JobApplicationPage_resume_management_upload_btn_text
             }

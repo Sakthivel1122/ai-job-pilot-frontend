@@ -321,12 +321,14 @@ const DashboardPage = () => {
             placeholder="Type here and click enter to search..."
             onChange={handleSearchOnChange}
             onKeyDown={handleSearchInputKeyDown}
+            customContainerClass={styles.DashboardPage_search_bar_input}
             customWrapperClass={
               styles.DashboardPage_search_bar_input_box_wrapper
             }
             customInputBoxClass={styles.DashboardPage_search_bar_input_box}
           />
           <Dropdown
+            customClass={styles.DashboardPage_search_bar_dropdown_wrapper}
             buttonLabel={selectedDropDownOption.label}
             buttonClass={styles.DashboardPage_dropdown_filter_btn}
             startIcon={
