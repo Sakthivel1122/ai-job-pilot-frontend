@@ -19,8 +19,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ProfileDropdown from "../profileDropdown/profileDropdown";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import ThemeToggleBtn from "@/components/themeToggleBtn/themeToggleBtn";
 import { useWindowWidth } from "@/hooks/useWindowWidth";
+import { RxHamburgerMenu } from "react-icons/rx";
+import Sidebar from "@/components/sidebar/sidebar";
 
 interface INavBarProps {
   initialSession: any;
@@ -104,6 +105,7 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
   );
   const [clientSideRendering, setClientSideRendering] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const profileDropdownRef = useRef<HTMLDivElement>(null);
   const profileIconRef = useRef<HTMLDivElement>(null);
@@ -285,7 +287,8 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
           </div>
           <div className={styles.NavBar_content_right}>
             {sessionData?.isLoggedIn ? (
-              <div className={styles.NavBar_loggedin_wrapper}>
+              <>
+                <div className={styles.NavBar_loggedin_wrapper}>
                 <ul className={styles.NavBar_content_right_item_wrapper}>
                   {navBarItemList.map((data) => (
                     <Link
@@ -301,29 +304,40 @@ const NavBar: React.FC<INavBarProps> = ({ initialSession }) => {
                 </ul>
                 <div className={styles.NavBar_profile_icon_wrapper}>
                   <div ref={profileIconRef}>
-                  <ProfileIcon
-                    className={`${styles.NavBar_profile_icon} ${isProfileDropdownOpen ? styles.active : ""}`}
-                    onClick={() => {
-                      setIsProfileDropdownOpen(!isProfileDropdownOpen);
-                    }}
-                  />
+                    <ProfileIcon
+                      className={`${styles.NavBar_profile_icon} ${isProfileDropdownOpen ? styles.active : ""}`}
+                      onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    />
                   </div>
-                  {isProfileDropdownOpen &&
+                  {isProfileDropdownOpen && (
                     <ProfileDropdown
                       ref={profileDropdownRef}
                       userData={sessionData.user}
-                      onLogoutClick={
-                        () => {
-                          handleLogout(ROUTES.HOME);
-                          setSessionData({});
-                        }
-                      }
-                    />}
+                      onLogoutClick={() => {
+                        handleLogout(ROUTES.HOME);
+                        setSessionData({});
+                      }}
+                    />
+                  )}
                 </div>
+                <button
+                  className={styles.NavBar_burger_btn}
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  aria-label="Open menu"
+                >
+                  <RxHamburgerMenu />
+                </button>
               </div>
+
+              <Sidebar
+                isOpen={isMobileMenuOpen}
+                onClose={() => setIsMobileMenuOpen(false)}
+                items={navBarItemList}
+                activePath={pathname ?? ""}
+              />
+              </>
             ) : (
               <div className={styles.NavBar_signin_btn_wrapper}>
-                <ThemeToggleBtn />
                 <Button
                   variant="transparent"
                   content="Sign In"

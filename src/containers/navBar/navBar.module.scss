@@ -10,8 +10,8 @@
   background-color: white;
 
   @include dark-mode {
-    background-color: $dark-bg-color;
-    border-bottom-color: grey;
+    background-color: $dark-grey;
+    border-bottom-color: $dark-border-color;
   }
 
   &_logo {
@@ -84,6 +84,31 @@
 
     &_wrapper {
       position: relative;
+    }
+  }
+
+  &_burger_btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.4rem;
+    color: inherit;
+    padding: 0.4rem;
+    line-height: 1;
+  }
+
+}
+
+@include respond-to("sm") {
+  .NavBar {
+    &_content_right_item_wrapper {
+      display: none;
+    }
+
+    &_burger_btn {
+      display: flex;
+      align-items: center;
     }
   }
 }

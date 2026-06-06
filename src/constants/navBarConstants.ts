@@ -1,10 +1,7 @@
 import { ROUTES } from "./app-constants";
+import { TSidebarNavItem } from "@/types/sidebar";
 
-export type TNavBarItem = {
-  id: number;
-  label: string;
-  link: string;
-};
+export type TNavBarItem = TSidebarNavItem;
 
 export const navBarItemList: TNavBarItem[] = [
   {
